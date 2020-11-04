@@ -1,0 +1,39 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  \
+"../../../../exp1.srcs/sources_1/ip/inst_ram/sim/inst_ram.v" \
+"../../../../exp1.srcs/sources_1/ip/data_ram/sim/data_ram.v" \
+"../../../../exp1.srcs/sources_1/new/alu.v" \
+"../../../../exp1.srcs/sources_1/new/aludec.v" \
+"../../../../exp1.srcs/sources_1/global_pred/branch_predict_global.v" \
+"../../../../exp1.srcs/sources_1/local_pred/branch_predict_local.v" \
+"../../../../exp1.srcs/sources_1/new/controller.v" \
+"../../../../exp1.srcs/sources_1/global_pred/datapath_global_predict.v" \
+"../../../../exp1.srcs/sources_1/local_pred/datapath_local_predict.v" \
+"../../../../exp1.srcs/sources_1/new/flopenr.v" \
+"../../../../exp1.srcs/sources_1/new/flopenrc.v" \
+"../../../../exp1.srcs/sources_1/new/floprc.v" \
+"../../../../exp1.srcs/sources_1/new/hazard.v" \
+"../../../../exp1.srcs/sources_1/new/maindec.v" \
+"../../../../exp1.srcs/sources_1/local_pred/mips_local_pred.v" \
+"../../../../exp1.srcs/sources_1/new/mux2.v" \
+"../../../../exp1.srcs/sources_1/new/mux3.v" \
+"../../../../exp1.srcs/sources_1/new/pc_adder.v" \
+"../../../../exp1.srcs/sources_1/new/regfile.v" \
+"../../../../exp1.srcs/sources_1/new/signext.v" \
+"../../../../exp1.srcs/sources_1/new/sl2.v" \
+"../../../../exp1.srcs/sources_1/local_pred/top_local_pred.v" \
+"../../../../exp1.srcs/sources_1/global_pred/mips_global_pred.v" \
+"../../../../exp1.srcs/sources_1/global_pred/top_global_pred.v" \
+"../../../../exp1.srcs/sources_1/tour_pred/top_tour_pred.v" \
+"../../../../exp1.srcs/sources_1/tour_pred/branch_predict_tour.v" \
+"../../../../exp1.srcs/sources_1/tour_pred/mips_tour_pred.v" \
+"../../../../exp1.srcs/sources_1/tour_pred/datapath_tour_predict.v" \
+"../../../../exp1.srcs/sim_1/imports/sim_1/testbench_global_pred.v" \
+"../../../../exp1.srcs/sim_1/imports/sim_1/testbench_local_pred.v" \
+"../../../../exp1.srcs/sim_1/imports/sim_1/testbench_tour_pred.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort
