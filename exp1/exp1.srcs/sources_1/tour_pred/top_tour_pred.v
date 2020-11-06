@@ -75,8 +75,8 @@ data_ram data_ram(
 	.ena(1'b1),
 	.wea({4{memwrite}}),
 	.addra(dataadr),
-	.dina(writedata),	 // 要写入存储器中的数据
-	.douta(readdata)	 // 从存储器中读出的数据
+	.dina(writedata),	 // 瑕佸啓鍏ュ瓨鍌ㄥ櫒涓殑鏁版嵁
+	.douta(readdata)	 // 浠庡瓨鍌ㄥ櫒涓鍑虹殑鏁版嵁
 );
 
 endmodule

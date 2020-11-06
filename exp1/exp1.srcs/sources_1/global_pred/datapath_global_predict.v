@@ -3,7 +3,7 @@
 
 module datapath_global_pred(
     input clk,rst,
-    input [31:0]instrD, readdata, // Êı¾İ´æ´¢Æ÷¶Á³öµÄÊı¾İ
+    input [31:0]instrD, readdata, // æ•°æ®å­˜å‚¨å™¨è¯»å‡ºçš„æ•°æ®
     input regwriteE,
     input regwriteM,
     input regwriteW,
@@ -32,10 +32,10 @@ module datapath_global_pred(
 );
 
 
-// pc_branched: ¶àÂ·Ñ¡Ôñ·ÖÖ§Ö®ºóµÄpc,ÓÃÀ´¸újumpµØÖ·ÔÙÑ¡Ò»´Î; pc_realnext: ÏÂÒ»ÌõÕæÕıÒªÖ´ĞĞµÄÖ¸ÁîµÄpc
+// pc_branched: å¤šè·¯é€‰æ‹©åˆ†æ”¯ä¹‹åçš„pc,ç”¨æ¥è·Ÿjumpåœ°å€å†é€‰ä¸€æ¬¡; pc_realnext: ä¸‹ä¸€æ¡çœŸæ­£è¦æ‰§è¡Œçš„æŒ‡ä»¤çš„pc
 wire [31:0] pc_branched, pc_realnext;
 
-//ALUÊı¾İÀ´Ô´A¡¢B; ¼Ä´æÆ÷¶ÑĞ´ÈëÊı¾İ£¬sl2_imm: signImmD<<2; sl2_j_addr: jumpÖ¸Áî²ÎÊı×óÒÆ2Î»; jump_addr: Êµ¼ÊÌø×ªµØÖ·¡£
+//ALUæ•°æ®æ¥æºAã€B; å¯„å­˜å™¨å †å†™å…¥æ•°æ®ï¼Œsl2_imm: signImmD<<2; sl2_j_addr: jumpæŒ‡ä»¤å‚æ•°å·¦ç§»2ä½; jump_addr: å®é™…è·³è½¬åœ°å€ã€‚
 wire [31:0] ALUsrcA, ALUsrcB1, ALUsrcB2, sl2_imm, sl2_j_addr, jump_addr;
     // resultW, 
 
@@ -50,7 +50,7 @@ wire [ 4:0] rsD, rtD, rdD;
 
 // Execute phase
 wire [31:0] pcPlus4E, pcBranchE, rd1E, rd2E, signImmE, aluoutE, writedataE;
-wire [ 4:0] rsE, rtE, rdE, writeregE; // Ğ´Èë¼Ä´æÆ÷¶ÑµÄµØÖ·
+wire [ 4:0] rsE, rtE, rdE, writeregE; // å†™å…¥å¯„å­˜å™¨å †çš„åœ°å€
 // zeroE: alu output,
 wire branchE, zeroE, actual_takeE;
 
@@ -70,20 +70,20 @@ wire [1:0] forwardAE, forwardBE;
 
 // branch prediction
 wire pred_takeD, pred_wrongM;
-wire pred_takeM; // ¼ÇÂ¼ÉÏ´ÎÔ¤²âµÄ½á¹û
+wire pred_takeM; // è®°å½•ä¸Šæ¬¡é¢„æµ‹çš„ç»“æœ
 
 // ----------------------------------------
 // Fetch 
 
-// PCÖ¸ÏòÑ¡Ôñ
-// pc_branched: ÓÃÀ´¸újumpµØÖ·ÔÙÑ¡Ò»´Î
+// PCæŒ‡å‘é€‰æ‹©
+// pc_branched: ç”¨æ¥è·Ÿjumpåœ°å€å†é€‰ä¸€æ¬¡
 
 assign pc_branched = {pred_wrongM, pred_takeD} == 2'b00 ? pcPlus4F :
                      {pred_wrongM, pred_takeD} == 2'b01 ? pcBranchD : 
                      {pred_wrongM, pred_takeM} == 2'b10 ? pcBranchM : 
                      pcPlus4M;
 
-//mux, Ñ¡Ôñ·ÖÖ§Ö®ºóµÄpcÓëjump_addr
+//mux, é€‰æ‹©åˆ†æ”¯ä¹‹åçš„pcä¸jump_addr
 mux2 #(32) mux_pcnext(
 	.a(jump_addr),
 	.b(pc_branched),
@@ -102,7 +102,7 @@ flopenr #(32) pc_module(
 
 assign pcF = pc;
 
-//PC+4¼Ó·¨Æ÷
+//PC+4åŠ æ³•å™¨
 adder pc_4_adder (
     .a(pcF),
     .b(32'h4),
@@ -125,7 +125,7 @@ flopenrc #(32) FD_pc_4 (
 // ----------------------------------------
 // Decode 
 
-//jumpÖ¸ÁîµÄ×óÒÆ2Î»
+//jumpæŒ‡ä»¤çš„å·¦ç§»2ä½
 sl2 sl2_2(
     .a({6'b0, instrD[25:0]}),
     .y(sl2_j_addr)
@@ -137,7 +137,7 @@ assign rsD = instrD[25:21];
 assign rtD = instrD[20:16];
 assign rdD = instrD[15:11];
 
-//¼Ä´æÆ÷¶Ñ
+//å¯„å­˜å™¨å †
 regfile regfile(
 	.clk(~clk),
 	.rst(rst),
@@ -155,13 +155,13 @@ regfile regfile(
     .r7(r7)
 );
 
-//·ûºÅÍØÕ¹
+//ç¬¦å·æ‹“å±•
 signext sign_extend(
     .a(instrD[15:0]),
     .y(signImmD)
 );
 
-//Á¢¼´ÊıµÄ×óÒÆ2Î»
+//ç«‹å³æ•°çš„å·¦ç§»2ä½
 sl2 sl2_1(
     .a(signImmD),
     .y(sl2_imm)
@@ -213,7 +213,7 @@ floprc #(32) DE_imm (
     .q(signImmE)
 );
 
-// ´«µİbranchĞÅºÅ
+// ä¼ é€’branchä¿¡å·
 floprc #(1) DE_branch (
     .clk(clk),
     .rst(rst),
@@ -222,7 +222,7 @@ floprc #(1) DE_branch (
     .q(branchE)
 );
 
-// ´«µİpcbranch
+// ä¼ é€’pcbranch
 floprc #(32) DE_pcbranch (
     .clk(clk),
     .rst(rst),
@@ -240,7 +240,7 @@ floprc #(32) DE_pc_4 (
     .q(pcPlus4E)
 );
 
-// ´«µİpred_takeĞÅºÅ
+// ä¼ é€’pred_takeä¿¡å·
 floprc #(1) DE_pred_take (
     .clk(clk),
     .rst(rst),
@@ -252,7 +252,7 @@ floprc #(1) DE_pred_take (
 // ----------------------------------------
 // Exe 
 
-// ALU,A¶ËÊäÈëÖµ£¬rd1E(00),resultW(01)£¬aluoutM(10)
+// ALU,Aç«¯è¾“å…¥å€¼ï¼Œrd1E(00),resultW(01)ï¼ŒaluoutM(10)
 mux3 #(32) mux_ALUAsrc(
     .a(rd1E),
     .b(resultW),
@@ -260,7 +260,7 @@ mux3 #(32) mux_ALUAsrc(
     .s(forwardAE),
     .y(ALUsrcA)
 );
-// ALU, B¶ËÊäÈëÖµ£¬rd1E(00),resultW(01)£¬aluoutM(10)
+// ALU, Bç«¯è¾“å…¥å€¼ï¼Œrd1E(00),resultW(01)ï¼ŒaluoutM(10)
 mux3 #(32) mux_ALUBsrc1(
     .a(rd2E),
     .b(resultW),
@@ -273,7 +273,7 @@ mux2 #(32) mux_ALUBsrc2(
     .a(signImmE),
     .b(ALUsrcB1),
     .s(alusrcE),
-    .y(ALUsrcB2) // BÊäÈëµÚ¶ş¸öÑ¡ÔñÆ÷Ö®ºóµÄ½á¹û
+    .y(ALUsrcB2) // Bè¾“å…¥ç¬¬äºŒä¸ªé€‰æ‹©å™¨ä¹‹åçš„ç»“æœ
 );
 
 //ALU
@@ -288,9 +288,9 @@ alu alu(
 
 assign actual_takeE = branchE && zeroE;
 
-assign writedataE = ALUsrcB1; // BÊäÈëµÚÒ»¸öÑ¡ÔñÆ÷Ö®ºóµÄ½á¹û
+assign writedataE = ALUsrcB1; // Bè¾“å…¥ç¬¬ä¸€ä¸ªé€‰æ‹©å™¨ä¹‹åçš„ç»“æœ
 
-// ¼Ä´æÆ÷¶ÑĞ´ÈëµØÖ· writereg
+// å¯„å­˜å™¨å †å†™å…¥åœ°å€ writereg
 
 mux2 #(5) mux_WA3(
 	.a(rdE), //instr[15:11]
@@ -372,7 +372,7 @@ flopenrc #(32) EM_pc_4 (
     .q(pcPlus4M)
 );
 
-// ´«µİpred_takeĞÅºÅ
+// ä¼ é€’pred_takeä¿¡å·
 flopenrc #(1) EM_pred_take (
     .clk(clk),
     .rst(rst),
@@ -421,10 +421,10 @@ flopenr #(5) MW_writereg (
 // ----------------------------------------
 // Write Back 
 
-//mux, ¼Ä´æÆ÷¶ÑĞ´ÈëÊı¾İÀ´×Ô´æ´¢Æ÷ or ALU £¬memtoReg
+//mux, å¯„å­˜å™¨å †å†™å…¥æ•°æ®æ¥è‡ªå­˜å‚¨å™¨ or ALU ï¼ŒmemtoReg
 mux2 #(32) mux_WD3(
-	.a(readdataW),//À´×ÔÊı¾İ´æ´¢Æ÷
-	.b(aluoutW),//À´×ÔALU¼ÆËã½á¹û
+	.a(readdataW),//æ¥è‡ªæ•°æ®å­˜å‚¨å™¨
+	.b(aluoutW),//æ¥è‡ªALUè®¡ç®—ç»“æœ
 	.s(memtoregW),
 	.y(resultW)
 );
@@ -457,7 +457,7 @@ hazard hazard(
 );
 
 // --------------------------------
-// »ùÓÚ¾Ö²¿ÀúÊ·Ô¤²âµÄ·ÖÖ§Ô¤²âÄ£¿é
+// åŸºäºå±€éƒ¨å†å²é¢„æµ‹çš„åˆ†æ”¯é¢„æµ‹æ¨¡å—
 branch_predict_global bpg(
 	.clk(clk),
 	.rst(rst),

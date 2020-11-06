@@ -12,7 +12,7 @@ module hazard(input [4:0] rsD,
               input regwriteW,
               input memtoregE,
               input memtoregM,
-              input pred_wrongM, //* ·ÖÖ§Ô¤²âÊÇ·ñ³ö´í
+              input pred_wrongM, //* åˆ†æ”¯é¢„æµ‹æ˜¯å¦å‡ºé”™
               
               output [1:0] forwardAE,
               output [1:0] forwardBE,
@@ -20,7 +20,7 @@ module hazard(input [4:0] rsD,
               );
 
 // --------------------------------
-// Êı¾İÃ°ÏÕ
+// æ•°æ®å†’é™©
 
 // forward
 assign forwardAE = ((rsE != 0) && (rsE == writeregM) && regwriteM) ? 2'b10 :
@@ -33,11 +33,11 @@ assign forwardBE = ((rtE != 0) && (rtE == writeregM) && regwriteM) ? 2'b10 :
 // --------------------------------
 // stall
 wire lwstall;
-assign lwstall = ((rsD == rtE) || (rtD == rtE)) && memtoregE; // ÅĞ¶Ï decode ½×¶Î rs »ò rt µÄµØÖ·ÊÇ·ñÊÇ lw Ö¸ÁîÒªĞ´ÈëµÄµØÖ·£»
+assign lwstall = ((rsD == rtE) || (rtD == rtE)) && memtoregE; // åˆ¤æ–­ decode é˜¶æ®µ rs æˆ– rt çš„åœ°å€æ˜¯å¦æ˜¯ lw æŒ‡ä»¤è¦å†™å…¥çš„åœ°å€ï¼›
 
 assign stallF = lwstall;
 assign stallD = lwstall;
-//* ·ÖÖ§Ô¤²âÊ§°ÜÊ±flushÁ÷Ë®Ïß
+//* åˆ†æ”¯é¢„æµ‹å¤±è´¥æ—¶flushæµæ°´çº¿
 assign flushD = pred_wrongM;
 assign flushM = pred_wrongM;
 assign flushE = lwstall || pred_wrongM; 
