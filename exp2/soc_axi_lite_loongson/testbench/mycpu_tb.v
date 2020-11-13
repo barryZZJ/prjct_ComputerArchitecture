@@ -120,14 +120,10 @@ reg [31:0] ref_wb_rf_wdata;
 always @(posedge cpu_clk)
 begin 
     #1;
-    if(|debug_wb_rf_wen && debug_wb_rf_wnum!=5'd0 && !debug_end && `CONFREG_OPEN_TRACE)
+    if(|debug_wb_rf_wen && debug_wb_rf_wnum!=5'd0 && !debug_end)
     begin
-        trace_cmp_flag=1'b0;
-        while (!trace_cmp_flag && !($feof(trace_ref)))
-        begin
-            $fscanf(trace_ref, "%h %h %h %h", trace_cmp_flag,
-                    ref_wb_pc, ref_wb_rf_wnum, ref_wb_rf_wdata);
-        end
+        $fscanf(trace_ref, "%h %h %h %h", trace_cmp_flag,
+                ref_wb_pc, ref_wb_rf_wnum, ref_wb_rf_wdata);
     end
 end
 
@@ -153,7 +149,7 @@ begin
     begin
         debug_wb_err <= 1'b0;
     end
-    else if(|debug_wb_rf_wen && debug_wb_rf_wnum!=5'd0 && !debug_end && `CONFREG_OPEN_TRACE)
+    else if(|debug_wb_rf_wen && debug_wb_rf_wnum!=5'd0 && !debug_end && trace_cmp_flag)
     begin
         if (  (debug_wb_pc!==ref_wb_pc) || (debug_wb_rf_wnum!==ref_wb_rf_wnum)
             ||(debug_wb_rf_wdata_v!==ref_wb_rf_wdata_v) )

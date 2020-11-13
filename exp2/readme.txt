@@ -1,21 +1,38 @@
-|--	doc									cache实验指导书；类sram接口相关文档。
-|
-|--	soc_axi_lite_loongson				带有直接映射写直达cache的Soc环境。需要同学们自己实现cache		
-	|
-	|--	rtl								Soc源代码及相关IP核
-	|								
-	|--	run_vivado						vivado工程
-	|
-	|--	testbench						仿真测试头文件
-	|
-	|-- ohhhh.wcfg						调试必备，提供的基础波形图。
-|
-|-- soft								soft为运行的软件环境，已经编译出coe等文件，不用修改；详情请参考文件内部readme_first.txt。
-|
-|--	traces								调试必备，traces下包含为仿真时进行对比的trace文件，不用修改
+```
+.
+|-- doc			文档
+|-- soc_axi_lite_loongson	soc环境
+|   |-- rtl				rtl源码
+|   |   |-- CONFREG
+|   |   |-- axi_wrap
+|   |   |-- myCPU			CPU源码目录
+|   |   |-- ram_wrap
+|   |   `-- xilinx_ip
+|   |-- run_vivado		
+|   |   `-- mycpu_prj1			vivado工程目录
+|   `-- testbench			仿真顶部文件
+|-- soft			软件环境
+|   `-- cache_lab
+|       |-- bench
+|       |-- include
+|       |-- lib
+|       `-- obj
+`-- traces			trace文件目录
 
+18 directories
 
-PS：
-	soc_axi_lite_loonson包含vivado项目，双击soc_axi_lite_loongson\run_vivado\mycpu_prj1下的mycpu.xpr即可打开vivado工程(2019.3版本)，已经配置好soc环境。
+```
 
-	soc_axi_lite_loongson\rtl\myCPU包含CPU代码，替换其中的cache模块（i_cache.v和d_cache.v）后直接仿真即可。
+## 改动
+
+1. 2020/11/13
+
+   1. 修改了soft/cache_lab/bench/下的shell1.c和matrix_mult.c中打开trace和关闭trace的位置。并重新编译获得obj。
+
+   2. 重新生成traces/cache_lab_trace.txt。并手动将pc=9fc00fa4-9fc00fc4的trace_cmp_flag（第一个数）置0，否则9fc00fb8和9fc00fbc会比对失败（即使关闭了trace，获得时间时get_count修改了一些寄存器，并保留了下来，导致这里的指令与时间有关）
+
+   3. 修改testbench文件mycpu_tb.v的逻辑。
+
+      原来的比对逻辑是当CPU写回阶段写寄存器时，读取trace文件并跳过trace_cmp_flag为0的行直到遇到为1的行，再和CPU写入的数据进行对比。
+
+      修改为，读取trace文件一行内容，并根据读到的trace_cmp_flag决定是否与CPU读到的数据比较。

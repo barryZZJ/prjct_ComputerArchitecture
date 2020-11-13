@@ -69,10 +69,13 @@ module d_cache (
     //FSM
     parameter IDLE = 2'b00, RM = 2'b01, WM = 2'b11;
     reg [1:0] state;
+    //* store指令，是否是处在RM状态（发生了miss)。当RM结束时(state从RM->IDLE)的上升沿，in_RM读出来仍为1.
+    reg in_RM;
 
     always @(posedge clk) begin
         if(rst) begin
             state <= IDLE;
+            in_RM <= 1'b0;
         end
         else begin
             case(state)
@@ -87,6 +90,7 @@ module d_cache (
                         else if (miss & clean)
                             state <= RM;
                     end
+                    in_RM <= 1'b0;
                 end
 
                 WM: begin
@@ -99,6 +103,8 @@ module d_cache (
                     state <= RM;
                     if (cache_data_data_ok)
                         state <= IDLE;
+
+                    in_RM <= 1'b1;
                 end
             endcase
         end
@@ -229,8 +235,10 @@ module d_cache (
                 cache_tag  [index_save] <= tag_save;
                 cache_block[index_save] <= cache_data_rdata; //写入Cache line
             end
-            else if (store & isIDLE) begin //* store指令，hit或读内存完成后，进入IDLE状态时，将内存中读取的部分字节写入cache对应行
-            //! 会不会在进入WM、RM之前先写了cache？
+            else if (store & isIDLE & (hit | in_RM)) begin 
+                //* store指令，hit进入IDLE状态 或 从读内存回到IDLE后，将寄存器值的(部分)字节写入cache对应行
+                //* 判断条件中加(hit | in_RM)是因为，如果只判断(store & isIDLE)，发生miss时，会在进入WM、RM之前提前进入该条件（本意是从RM回到IDLE的时候，已经读了mem的数据到cache后，再进入该条件，结果是刚进入store分支，就进入了该条件），
+                //* 如果提前进入条件的话，此时写入cache的write_cache_data为 {旧cache[:x], 寄存器[x-1:0]}，WM时会把这个错误数据写回mem，导致出错。为解决该问题，额外加了一个信号in_RM，记录之前是不是一直处在RM状态。
                 cache_dirty[index] <= 1'b1; // 改了数据，变dirty
                 cache_block[index] <= write_cache_data;      //写入Cache line，使用index而不是index_save
             end

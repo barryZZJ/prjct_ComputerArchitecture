@@ -1,9 +1,9 @@
 module d_cache_wt (
     input wire clk, rst,
     //mips core
-    input         cpu_data_req     , //* 是不是数据请求(load 或 store指令)，一个周期后就清除了
-    input         cpu_data_wr      , //* mips->cache, 当前请求是否是写请求(是不是store指令)，一直保持电平状态直到请求成功
-    input  [1 :0] cpu_data_size    , //* 结合地址最低两位，确定数据的有效字节
+    input         cpu_data_req     ,
+    input         cpu_data_wr      ,
+    input  [1 :0] cpu_data_size    ,
     input  [31:0] cpu_data_addr    ,
     input  [31:0] cpu_data_wdata   ,
     output [31:0] cpu_data_rdata   ,
@@ -11,8 +11,8 @@ module d_cache_wt (
     output        cpu_data_data_ok ,
 
     //axi interface
-    output         cache_data_req     , //* 是不是数据请求(load 或 store指令)，一个周期后就清除了
-    output         cache_data_wr      , //* cache->mem, 当前请求是否是写请求(是不是store指令)。一直保持电平状态直到请求成功
+    output         cache_data_req     ,
+    output         cache_data_wr      ,
     output  [1 :0] cache_data_size    ,
     output  [31:0] cache_data_addr    ,
     output  [31:0] cache_data_wdata   ,
@@ -53,7 +53,7 @@ module d_cache_wt (
     assign hit = c_valid & (c_tag == tag);  //cache line的valid位为1，且tag与地址中tag相等
     assign miss = ~hit;
 
-    // cpu请求是不是读或写请求(是不是load或store指令)
+    //读或写
     wire read, write;
     assign write = cpu_data_wr;
     assign read = ~write;
@@ -78,9 +78,9 @@ module d_cache_wt (
 
     //读内存
     //变量read_req, addr_rcv, read_finish用于构造类sram信号。
-    wire read_req;      //一次完整的读事务，从发出读请求到结束 //* 是不是处于RM状态(也即是不是load指令)
-    reg addr_rcv;       //地址接收成功(addr_ok)后到结束      //* load指令，且地址已得到mem的确认
-    wire read_finish;   //数据接收成功(data_ok)，即读请求结束 //* load指令，且已得到mem的数据
+    wire read_req;      //一次完整的读事务，从发出读请求到结束
+    reg addr_rcv;       //地址接收成功(addr_ok)后到结束
+    wire read_finish;   //数据接收成功(data_ok)，即读请求结束
     always @(posedge clk) begin
         addr_rcv <= rst ? 1'b0 :
                     read & cache_data_req & cache_data_addr_ok ? 1'b1 :

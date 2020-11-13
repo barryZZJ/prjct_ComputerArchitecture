@@ -1,10 +1,10 @@
 -- Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2019.2 (win64) Build 2708876 Wed Nov  6 21:40:23 MST 2019
--- Date        : Fri Nov 13 15:31:59 2020
+-- Date        : Fri Nov 13 23:24:43 2020
 -- Host        : Barry running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode funcsim
---               D:/Software/Vivado/projects/prjct_ComputerArchitecture/exp2/soc_axi_lite_loongson/rtl/xilinx_ip/axi_crossbar_1x2/axi_crossbar_1x2_sim_netlist.vhdl
+--               D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/rtl/xilinx_ip/axi_crossbar_1x2/axi_crossbar_1x2_sim_netlist.vhdl
 -- Design      : axi_crossbar_1x2
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.

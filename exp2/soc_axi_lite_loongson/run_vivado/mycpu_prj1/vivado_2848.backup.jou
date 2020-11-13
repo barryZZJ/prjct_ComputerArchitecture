@@ -1,0 +1,95 @@
+#-----------------------------------------------------------
+# Vivado v2019.2 (64-bit)
+# SW Build 2708876 on Wed Nov  6 21:40:23 MST 2019
+# IP Build 2700528 on Thu Nov  7 00:09:20 MST 2019
+# Start of session at: Fri Nov 13 22:45:10 2020
+# Process ID: 2848
+# Current directory: D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent3356 D:\Software\Vivado\projects\prjct_ComputerArchitecture\test2\soc_axi_lite_loongson\run_vivado\mycpu_prj1\mycpu.xpr
+# Log file: D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/vivado.log
+# Journal file: D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1\vivado.jou
+#-----------------------------------------------------------
+sstart_guioopen_project D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.xpruupdate_compile_order -fileset sources_1
+export_ip_user_files -of_objects  [get_files D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/rtl/myCPU/d_cache.v] -no_script -reset -force -quiet
+remove_files  D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/rtl/myCPU/d_cache.v
+generate_target all [get_files D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/rtl/xilinx_ip/clk_pll/clk_pll.xci]
+export_ip_user_files -of_objects [get_files D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/rtl/xilinx_ip/clk_pll/clk_pll.xci] -no_script -sync -force -quiet
+export_simulation -of_objects [get_files D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/rtl/xilinx_ip/clk_pll/clk_pll.xci] -directory D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.ip_user_files/sim_scripts -ip_user_files_dir D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.ip_user_files -ipstatic_source_dir D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Modeltech_pe_edu_10.4a/xilinx_lib} {questa=D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.cache/compile_simlib/questa} {riviera=D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.cache/compile_simlib/riviera} {activehdl=D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+create_fileset -blockset clk_pll
+set_property top clk_pll [get_fileset clk_pll]
+move_files -fileset [get_fileset clk_pll] [get_files -of_objects [get_fileset sources_1] D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/rtl/xilinx_ip/clk_pll/clk_pll.xci]
+generate_target all [get_files D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/rtl/xilinx_ip/axi_ram/axi_ram.xci]
+export_ip_user_files -of_objects [get_files D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/rtl/xilinx_ip/axi_ram/axi_ram.xci] -no_script -sync -force -quiet
+export_simulation -of_objects [get_files D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/rtl/xilinx_ip/axi_ram/axi_ram.xci] -directory D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.ip_user_files/sim_scripts -ip_user_files_dir D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.ip_user_files -ipstatic_source_dir D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Modeltech_pe_edu_10.4a/xilinx_lib} {questa=D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.cache/compile_simlib/questa} {riviera=D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.cache/compile_simlib/riviera} {activehdl=D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+create_fileset -blockset axi_ram
+set_property top axi_ram [get_fileset axi_ram]
+move_files -fileset [get_fileset axi_ram] [get_files -of_objects [get_fileset sources_1] D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/rtl/xilinx_ip/axi_ram/axi_ram.xci]
+generate_target all [get_files D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/rtl/xilinx_ip/axi_crossbar_1x2/axi_crossbar_1x2.xci]
+export_ip_user_files -of_objects [get_files D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/rtl/xilinx_ip/axi_crossbar_1x2/axi_crossbar_1x2.xci] -no_script -sync -force -quiet
+export_simulation -of_objects [get_files D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/rtl/xilinx_ip/axi_crossbar_1x2/axi_crossbar_1x2.xci] -directory D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.ip_user_files/sim_scripts -ip_user_files_dir D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.ip_user_files -ipstatic_source_dir D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Modeltech_pe_edu_10.4a/xilinx_lib} {questa=D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.cache/compile_simlib/questa} {riviera=D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.cache/compile_simlib/riviera} {activehdl=D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+create_fileset -blockset axi_crossbar_1x2
+set_property top axi_crossbar_1x2 [get_fileset axi_crossbar_1x2]
+move_files -fileset [get_fileset axi_crossbar_1x2] [get_files -of_objects [get_fileset sources_1] D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/rtl/xilinx_ip/axi_crossbar_1x2/axi_crossbar_1x2.xci]
+generate_target all [get_files D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/rtl/xilinx_ip/axi_clock_converter/axi_clock_converter.xci]
+export_ip_user_files -of_objects [get_files D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/rtl/xilinx_ip/axi_clock_converter/axi_clock_converter.xci] -no_script -sync -force -quiet
+export_simulation -of_objects [get_files D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/rtl/xilinx_ip/axi_clock_converter/axi_clock_converter.xci] -directory D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.ip_user_files/sim_scripts -ip_user_files_dir D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.ip_user_files -ipstatic_source_dir D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Modeltech_pe_edu_10.4a/xilinx_lib} {questa=D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.cache/compile_simlib/questa} {riviera=D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.cache/compile_simlib/riviera} {activehdl=D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+create_fileset -blockset axi_clock_converter
+set_property top axi_clock_converter [get_fileset axi_clock_converter]
+move_files -fileset [get_fileset axi_clock_converter] [get_files -of_objects [get_fileset sources_1] D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/rtl/xilinx_ip/axi_clock_converter/axi_clock_converter.xci]
+generate_target all [get_files D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/rtl/xilinx_ip/unsigned_mult/unsigned_mult.xci]
+export_ip_user_files -of_objects [get_files D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/rtl/xilinx_ip/unsigned_mult/unsigned_mult.xci] -no_script -sync -force -quiet
+export_simulation -of_objects [get_files D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/rtl/xilinx_ip/unsigned_mult/unsigned_mult.xci] -directory D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.ip_user_files/sim_scripts -ip_user_files_dir D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.ip_user_files -ipstatic_source_dir D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Modeltech_pe_edu_10.4a/xilinx_lib} {questa=D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.cache/compile_simlib/questa} {riviera=D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.cache/compile_simlib/riviera} {activehdl=D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+create_fileset -blockset unsigned_mult
+set_property top unsigned_mult [get_fileset unsigned_mult]
+move_files -fileset [get_fileset unsigned_mult] [get_files -of_objects [get_fileset sources_1] D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/rtl/xilinx_ip/unsigned_mult/unsigned_mult.xci]
+generate_target all [get_files D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/rtl/xilinx_ip/signed_mult/signed_mult.xci]
+export_ip_user_files -of_objects [get_files D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/rtl/xilinx_ip/signed_mult/signed_mult.xci] -no_script -sync -force -quiet
+export_simulation -of_objects [get_files D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/rtl/xilinx_ip/signed_mult/signed_mult.xci] -directory D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.ip_user_files/sim_scripts -ip_user_files_dir D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.ip_user_files -ipstatic_source_dir D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.ip_user_files/ipstatic -lib_map_path [list {modelsim=D:/Modeltech_pe_edu_10.4a/xilinx_lib} {questa=D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.cache/compile_simlib/questa} {riviera=D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.cache/compile_simlib/riviera} {activehdl=D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/run_vivado/mycpu_prj1/mycpu.cache/compile_simlib/activehdl}] -use_ip_compiled_libs -force -quiet
+create_fileset -blockset signed_mult
+set_property top signed_mult [get_fileset signed_mult]
+move_files -fileset [get_fileset signed_mult] [get_files -of_objects [get_fileset sources_1] D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/rtl/xilinx_ip/signed_mult/signed_mult.xci]
+launch_run {clk_pll_synth_1 axi_ram_synth_1 axi_crossbar_1x2_synth_1 axi_clock_converter_synth_1 unsigned_mult_synth_1 signed_mult_synth_1}
+wait_on_run clk_pll_synth_1
+
+wait_on_run clk_pll_synth_1
+wait_on_run axi_ram_synth_1
+
+wait_on_run clk_pll_synth_1
+wait_on_run axi_ram_synth_1
+wait_on_run axi_crossbar_1x2_synth_1
+
+wait_on_run clk_pll_synth_1
+wait_on_run axi_ram_synth_1
+wait_on_run axi_crossbar_1x2_synth_1
+wait_on_run axi_clock_converter_synth_1
+
+wait_on_run clk_pll_synth_1
+wait_on_run axi_ram_synth_1
+wait_on_run axi_crossbar_1x2_synth_1
+wait_on_run axi_clock_converter_synth_1
+wait_on_run unsigned_mult_synth_1
+
+wait_on_run clk_pll_synth_1
+wait_on_run axi_ram_synth_1
+wait_on_run axi_crossbar_1x2_synth_1
+wait_on_run axi_clock_converter_synth_1
+wait_on_run unsigned_mult_synth_1
+wait_on_run signed_mult_synth_1
+
+launch_simulation
+add_files -norecurse {D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/rtl/myCPU/d_cache_wt.v D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/rtl/myCPU/d_cache_wb.v}
+update_compile_order -fileset sources_1
+launch_simulation
+source tb_top.tcl
+open_wave_config {D:/Software/Vivado/projects/prjct_ComputerArchitecture/test2/soc_axi_lite_loongson/ohhhh.wcfg}
+run all
+relaunch_sim
+relaunch_sim
+run all
+relaunch_sim
+run all
+run all
+run all
+relaunch_sim
+run all
+close_sim

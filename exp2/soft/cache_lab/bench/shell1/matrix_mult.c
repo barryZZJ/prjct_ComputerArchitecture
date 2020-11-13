@@ -84,11 +84,7 @@ C_array [16 * 16];
 
 int matrix_mult()
 {
-    enable_trace_cmp;          //打开trace比对
-
     dgemm(N, A_array, B_array, C_array);
-
-    disable_trace_cmp;         //关闭trace比对，且不再打开
 
     int i, j;
     for(i=0; i<N; i++){
