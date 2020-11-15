@@ -1,10 +1,10 @@
 // Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
-// Tool Version: Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
-// Date        : Sat Jun 20 14:26:49 2020
+// Tool Version: Vivado v.2019.2 (win64) Build 2708876 Wed Nov  6 21:40:23 MST 2019
+// Date        : Sun Nov 15 22:04:17 2020
 // Host        : Barry running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode funcsim -rename_top data_ram -prefix
-//               data_ram_ data_ram_sim_netlist.v
+// Command     : write_verilog -force -mode funcsim
+//               D:/Software/Vivado/projects/prjct_ComputerArchitecture/exp1/exp1.srcs/sources_1/ip/data_ram/data_ram_sim_netlist.v
 // Design      : data_ram
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -12,7 +12,7 @@
 // --------------------------------------------------------------------------------
 `timescale 1 ps / 1 ps
 
-(* CHECK_LICENSE_TYPE = "data_ram,blk_mem_gen_v8_4_3,{}" *) (* downgradeipidentifiedwarnings = "yes" *) (* x_core_info = "blk_mem_gen_v8_4_3,Vivado 2019.1" *) 
+(* CHECK_LICENSE_TYPE = "data_ram,blk_mem_gen_v8_4_4,{}" *) (* downgradeipidentifiedwarnings = "yes" *) (* x_core_info = "blk_mem_gen_v8_4_4,Vivado 2019.2" *) 
 (* NotValidForBitStream *)
 module data_ram
    (clka,
@@ -131,7 +131,7 @@ module data_ram
   (* C_WRITE_WIDTH_B = "32" *) 
   (* C_XDEVICEFAMILY = "artix7" *) 
   (* downgradeipidentifiedwarnings = "yes" *) 
-  data_ram_blk_mem_gen_v8_4_3 U0
+  data_ram_blk_mem_gen_v8_4_4 U0
        (.addra(addra),
         .addrb({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
         .clka(clka),
@@ -197,6 +197,7 @@ module data_ram
         .web({1'b0,1'b0,1'b0,1'b0}));
 endmodule
 
+(* ORIG_REF_NAME = "blk_mem_gen_generic_cstr" *) 
 module data_ram_blk_mem_gen_generic_cstr
    (douta,
     clka,
@@ -227,6 +228,7 @@ module data_ram_blk_mem_gen_generic_cstr
         .wea(wea));
 endmodule
 
+(* ORIG_REF_NAME = "blk_mem_gen_prim_width" *) 
 module data_ram_blk_mem_gen_prim_width
    (douta,
     clka,
@@ -257,6 +259,7 @@ module data_ram_blk_mem_gen_prim_width
         .wea(wea));
 endmodule
 
+(* ORIG_REF_NAME = "blk_mem_gen_prim_wrapper_init" *) 
 module data_ram_blk_mem_gen_prim_wrapper_init
    (douta,
     clka,
@@ -503,6 +506,7 @@ module data_ram_blk_mem_gen_prim_wrapper_init
         .WEBWE({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}));
 endmodule
 
+(* ORIG_REF_NAME = "blk_mem_gen_top" *) 
 module data_ram_blk_mem_gen_top
    (douta,
     clka,
@@ -558,8 +562,8 @@ endmodule
 (* C_WEA_WIDTH = "4" *) (* C_WEB_WIDTH = "4" *) (* C_WRITE_DEPTH_A = "1024" *) 
 (* C_WRITE_DEPTH_B = "1024" *) (* C_WRITE_MODE_A = "WRITE_FIRST" *) (* C_WRITE_MODE_B = "WRITE_FIRST" *) 
 (* C_WRITE_WIDTH_A = "32" *) (* C_WRITE_WIDTH_B = "32" *) (* C_XDEVICEFAMILY = "artix7" *) 
-(* downgradeipidentifiedwarnings = "yes" *) 
-module data_ram_blk_mem_gen_v8_4_3
+(* ORIG_REF_NAME = "blk_mem_gen_v8_4_4" *) (* downgradeipidentifiedwarnings = "yes" *) 
+module data_ram_blk_mem_gen_v8_4_4
    (clka,
     rsta,
     ena,
@@ -849,7 +853,7 @@ module data_ram_blk_mem_gen_v8_4_3
   assign sbiterr = \<const0> ;
   GND GND
        (.G(\<const0> ));
-  data_ram_blk_mem_gen_v8_4_3_synth inst_blk_mem_gen
+  data_ram_blk_mem_gen_v8_4_4_synth inst_blk_mem_gen
        (.addra(addra[11:2]),
         .clka(clka),
         .dina(dina),
@@ -858,7 +862,8 @@ module data_ram_blk_mem_gen_v8_4_3
         .wea(wea));
 endmodule
 
-module data_ram_blk_mem_gen_v8_4_3_synth
+(* ORIG_REF_NAME = "blk_mem_gen_v8_4_4_synth" *) 
+module data_ram_blk_mem_gen_v8_4_4_synth
    (douta,
     clka,
     ena,

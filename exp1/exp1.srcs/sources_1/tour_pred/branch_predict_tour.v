@@ -3,15 +3,12 @@ module branch_predict_tour(
     
     input wire flushD, stallD, flushE, flushM,
 
-    input wire [31:0] pcF, pcE, pcM,
+    input wire [31:0] pcF, pcD, pcE, pcM,
     input wire branchD, branchE, branchM,
     input wire actual_takeE, actual_takeM,
 
     output wire pred_takeD,
-    output wire pred_wrongM,
-    //! for debug
-    output wire pred_takeD_loc,
-    output wire pred_takeD_glo
+    output wire pred_wrongM
 );
 
 parameter Strongly_not_taken = 2'b00, Weakly_not_taken = 2'b01, Weakly_taken = 2'b11, Strongly_taken = 2'b10;
@@ -32,7 +29,7 @@ wire [(PHTl_DEPTH-1):0] BHR_value;
 // ----------------------预测逻辑 start----------------------
 assign BHT_index = pcF[11:2];     
 assign BHR_value = BHT[BHT_index];  
-assign PHTl_index = BHR_value; //* 所有分支指令只使用一个PHTl。不同指令可能对应到相同BHR值，对应PHTl的同一个计数器。
+assign PHTl_index = BHR_value ^ pcF[7:2]; //* 所有分支指令只使用一个PHTl。不同指令可能对应到相同BHR值，对应PHTl的同一个计数器。为解决冲突，使用pc[7:2] ^ BHR来索引PHT。
 
 assign pred_takeF_loc = PHTl[PHTl_index][1];      // 在取指阶段预测是否会跳转，并经过流水线传递给译码阶段。
 
@@ -53,7 +50,7 @@ reg pred_wrongE_loc;
 always @(posedge clk ) begin
     if(rst | flushE)
         pred_wrongE_loc <= 1'b0;
-    else if (branchE && PHTl[BHT[pcE[11:2]]][1] != actual_takeE)
+    else if (branchE && PHTl[BHT[pcE[11:2]] ^ pcE[7:2]][1] != actual_takeE)
         pred_wrongE_loc <= 1'b1;
     else
         pred_wrongE_loc <= 1'b0;
@@ -66,7 +63,7 @@ wire [(PHTl_DEPTH-1):0] update_BHR_value;
 
 assign update_BHT_index = pcM[11:2];     
 assign update_BHR_value = BHT[update_BHT_index];  
-assign update_PHTl_index = update_BHR_value;
+assign update_PHTl_index = update_BHR_value ^ pcM[7:2];
 
 always@(posedge clk) begin
     if(rst) begin
@@ -152,9 +149,11 @@ reg [GHR_LENGTH-1:0] GHR_value_prev; //* GHR 更新之前的值，用于训练PH
 reg [1:0] PHTg [(1<<GHR_LENGTH)-1 : 0]; //* 2^k个两位饱和计数器
 integer t;
 
+wire [(GHR_LENGTH-1):0] PHTg_index;
 // ----------------------预测逻辑 start----------------------
 
-assign pred_takeF_glo = PHTg[GHR_value][1]; //* 在取指阶段预测是否会跳转，并经过流水线传递给译码阶段。
+assign PHTg_index = GHR_value ^ pcF[9:2]; //* GHR有8位，故取pc[9:2]
+assign pred_takeF_glo = PHTg[PHTg_index][1]; //* 在取指阶段预测是否会跳转，并经过流水线传递给译码阶段。
 
 // --------------pipeline------------------
     always @(posedge clk) begin
@@ -202,6 +201,8 @@ wire pred_wrongM_glo;
 assign pred_wrongM_glo = pred_wrongE_glo;
 
 // ---------------------PHTg初始化以及更新start---------------------
+wire [(GHR_LENGTH-1):0] update_PHTg_index;
+assign update_PHTg_index = GHR_value_prev ^ pcM[9:2]; //* GHR有8位，故取pc[9:2]
 //* MEM阶段根据实际的结果训练PHTg
 always @(posedge clk) begin
     if(rst) begin
@@ -210,32 +211,32 @@ always @(posedge clk) begin
         end
     end
     else if (branchM) begin
-        case(PHTg[GHR_value_prev])
+        case(PHTg[update_PHTg_index])
         //* 此处应该添加你的更新逻辑的代码
         //* 如果当前指令是branch指令，则根据更新了的GHR训练PHTg
             Strongly_not_taken: begin
                 if (actual_takeM) 
-                    PHTg[GHR_value_prev] <= Weakly_not_taken;
+                    PHTg[update_PHTg_index] <= Weakly_not_taken;
                 else
-                    PHTg[GHR_value_prev] <= Strongly_not_taken;
+                    PHTg[update_PHTg_index] <= Strongly_not_taken;
             end
             Weakly_not_taken: begin
                 if (actual_takeM) 
-                    PHTg[GHR_value_prev] <= Weakly_taken;
+                    PHTg[update_PHTg_index] <= Weakly_taken;
                 else
-                    PHTg[GHR_value_prev] <= Strongly_not_taken;
+                    PHTg[update_PHTg_index] <= Strongly_not_taken;
             end
             Weakly_taken: begin
                 if (actual_takeM) 
-                    PHTg[GHR_value_prev] <= Strongly_taken;
+                    PHTg[update_PHTg_index] <= Strongly_taken;
                 else
-                    PHTg[GHR_value_prev] <= Weakly_not_taken;
+                    PHTg[update_PHTg_index] <= Weakly_not_taken;
             end
             Strongly_taken: begin
                 if (actual_takeM) 
-                    PHTg[GHR_value_prev] <= Strongly_taken;
+                    PHTg[update_PHTg_index] <= Strongly_taken;
                 else
-                    PHTg[GHR_value_prev] <= Weakly_taken;
+                    PHTg[update_PHTg_index] <= Weakly_taken;
             end
         endcase 
     end
@@ -266,23 +267,24 @@ if(rst) begin
         CPHT[l] <= Weakly_local;
     end
 end else if (branchM) begin
+// * 根据GHR和pc异或的结果索引CPHT
     case ({pred_wrongM_glo, pred_wrongM_loc})
         2'b10:
-            CPHT[GHR_value_prev] <= CPHT[GHR_value_prev] - 1'b1;
+            CPHT[GHR_value_prev ^ pcM[9:2]] <= CPHT[GHR_value_prev ^ pcM[9:2]] - 1'b1;
         2'b01:
-            CPHT[GHR_value_prev] <= CPHT[GHR_value_prev] + 1'b1;
+            CPHT[GHR_value_prev ^ pcM[9:2]] <= CPHT[GHR_value_prev ^ pcM[9:2]] + 1'b1;
         default:
-            CPHT[GHR_value_prev] <= CPHT[GHR_value_prev];
+            CPHT[GHR_value_prev ^ pcM[9:2]] <= CPHT[GHR_value_prev ^ pcM[9:2]];
     endcase
 end
 end
 // ---------------- CPHT初始化以及更新 end-----------------
 //* EX结束、MEM刚开始时输出预测是否错误：
-assign pred_wrongM = CPHT[GHR_value_prev][1] == 1'b0 ? pred_wrongM_glo :
+assign pred_wrongM = CPHT[GHR_value_prev ^ pcM[9:2]][1] == 1'b0 ? pred_wrongM_glo :
                                                         pred_wrongM_loc;
 
 //* ID阶段输出最终的预测结果
-assign pred_takeD = CPHT[GHR_value][1] == 1'b0 ? pred_takeD_glo :
+assign pred_takeD = CPHT[GHR_value ^ pcD[9:2]][1] == 1'b0 ? pred_takeD_glo :
                                                     pred_takeD_loc;
 // ================= 竞争 ====================
 

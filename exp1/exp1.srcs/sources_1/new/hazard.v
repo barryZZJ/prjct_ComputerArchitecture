@@ -12,6 +12,7 @@ module hazard(input [4:0] rsD,
               input regwriteW,
               input memtoregE,
               input memtoregM,
+              input pred_takeD,
               input pred_wrongM, //* 分支预测是否出错
               
               output [1:0] forwardAE,
@@ -37,8 +38,9 @@ assign lwstall = ((rsD == rtE) || (rtD == rtE)) && memtoregE; // 判断 decode �
 
 assign stallF = lwstall;
 assign stallD = lwstall;
-//* 分支预测失败时flush流水线
-assign flushD = pred_wrongM;
+//* 因为无论如何都会加载BEQ的下一条指令，所以如果预测跳转，需要把flushD置1，防止译码BEQ的下一条指令
+//* 同时分支预测失败时(在MEM阶段发现)，需要flush MEM之前的各级流水线
+assign flushD = pred_takeD | pred_wrongM;
 assign flushM = pred_wrongM;
 assign flushE = lwstall || pred_wrongM; 
 

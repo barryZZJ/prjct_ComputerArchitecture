@@ -7,21 +7,7 @@ module top_tour_pred(
 	output [4:0] rs, rt, rd,
 	output wire [31:0] writedata, dataadr,
 	output wire memwrite,
-	output stallF, stallD, flushD, flushE, flushM,
-	//! for debug
-    output wire [31:0] pcPlus4M,
-	output [31:0] pcBranchE,
-	output [31:0] pcBranchM,
-	output branchM,
-    output wire pred_takeD, pred_takeM,
-	output wire pred_takeD_loc,
-    output wire pred_takeD_glo,
-    output wire pred_wrongM,
-	output wire[31:0] r2,
-	output wire[31:0] r4,
-	output wire[31:0] r5,
-	output wire[31:0] r7,
-	output jumpD
+	output stallF, stallD, flushD, flushE, flushM
 );
 
 wire [31:0] readdata; 
@@ -44,21 +30,7 @@ mips_tour_pred mips_tour_pred(
 	.stallD(stallD),
 	.flushD(flushD),
 	.flushE(flushE),
-	.flushM(flushM),
-	.pred_takeD(pred_takeD),
-	.pred_takeM(pred_takeM),
-	.pred_takeD_loc(pred_takeD_loc),
-	.pred_takeD_glo(pred_takeD_glo),
-	.pred_wrongM(pred_wrongM),
-	.pcPlus4M(pcPlus4M),
-	.pcBranchE(pcBranchE),
-	.pcBranchM(pcBranchM),
-	.branchM(branchM),
-    .r2(r2),
-    .r4(r4),
-    .r5(r5),
-    .r7(r7),
-	.jumpD(jumpD)
+	.flushM(flushM)
 );
 
 inst_ram inst_ram(

@@ -34,9 +34,9 @@ wire [(BHT_DEPTH-1):0] BHT_index;
 wire [(PHT_DEPTH-1):0] BHR_value;
 
 // ----------------------预测逻辑 start----------------------
-assign BHT_index = pcF[11:2];     
-assign BHR_value = BHT[BHT_index];  
-assign PHT_index = BHR_value; //* 所有分支指令只使用一个PHT。不同指令可能对应到相同BHR值，对应PHT的同一个计数器。
+assign BHT_index = pcF[11:2];
+assign BHR_value = BHT[BHT_index]; 
+assign PHT_index = BHR_value ^ pcF[7:2]; //* 所有分支指令只使用一个PHT。为解决冲突，使用pc[7:2] ^ BHR来索引PHT。
 
 assign pred_takeF = PHT[PHT_index][1];      // 在取指阶段预测是否会跳转，并经过流水线传递给译码阶段。
 
@@ -58,7 +58,7 @@ reg pred_wrongE;
 always @(posedge clk ) begin
     if(rst | flushE)
         pred_wrongE <= 1'b0;
-    else if (branchE && PHT[BHT[pcE[11:2]]][1] != actual_takeE)
+    else if (branchE && PHT[BHT[pcE[11:2]] ^ pcE[7:2]][1] != actual_takeE)
         pred_wrongE <= 1'b1;
     else
         pred_wrongE <= 1'b0;
@@ -69,9 +69,9 @@ wire [(PHT_DEPTH-1):0] update_PHT_index;
 wire [(BHT_DEPTH-1):0] update_BHT_index;
 wire [(PHT_DEPTH-1):0] update_BHR_value;
 
-assign update_BHT_index = pcM[11:2];     
+assign update_BHT_index = pcM[11:2];
 assign update_BHR_value = BHT[update_BHT_index];  
-assign update_PHT_index = update_BHR_value;
+assign update_PHT_index = update_BHR_value ^ pcM[7:2];
 
 always@(posedge clk) begin
     if(rst) begin
@@ -88,7 +88,7 @@ always@(posedge clk) begin
 end
 
 //* 如果预测错误，则清空流水线（在hazard模块中）和将指令计数器置为正确的值（在datapath模块中），由pred_wrongM信号控制。
-//* EX结束、MEM刚开始时输出预测是否错误：
+//* EX结束、MEM刚开始时输出预测是否错误（因为在上升沿判断，所以MEM刚开始时读取pred_wrongE的值还是更新之前的值，所以直接assign）：
 assign pred_wrongM = pred_wrongE;
 // -------------------BHT初始化以及更新 end-------------------
 

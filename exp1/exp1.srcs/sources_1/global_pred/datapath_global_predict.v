@@ -17,18 +17,7 @@ module datapath_global_pred(
     input branchD,
     
     output wire [31:0] pc, aluoutM, mem_WriteData, resultW,
-    output wire stallF, stallD, flushD, flushE, flushM,
-	//! for debug
-    output wire pred_takeD, pred_takeM,
-    output wire pred_wrongM,
-    output wire [31:0] pcPlus4M,
-	output wire [31:0] pcBranchE,
-    output wire [31:0] pcBranchM,
-    output wire branchM,
-	output wire[31:0] r2,
-	output wire[31:0] r4,
-	output wire[31:0] r5,
-	output wire[31:0] r7
+    output wire stallF, stallD, flushD, flushE, flushM
 );
 
 
@@ -45,17 +34,17 @@ wire [31:0] pcF, pcPlus4F;
 // Decode phase
 // pc_4: pcPlus4; extend_imm: {16'b0, instr[15:0]}
 // pcBranchD: signImmD << 2 + pcPlus4D
-wire [31:0] pcPlus4D, pcBranchD, rd1D, rd2D, signImmD;
+wire [31:0] pcD, pcPlus4D, pcBranchD, rd1D, rd2D, signImmD;
 wire [ 4:0] rsD, rtD, rdD;
 
 // Execute phase
-wire [31:0] pcPlus4E, pcBranchE, rd1E, rd2E, signImmE, aluoutE, writedataE;
+wire [31:0] pcE, pcPlus4E, pcBranchE, rd1E, rd2E, signImmE, aluoutE, writedataE;
 wire [ 4:0] rsE, rtE, rdE, writeregE; // 写入寄存器堆的地址
 // zeroE: alu output,
 wire branchE, zeroE, actual_takeE;
 
 // Mem phase 
-wire [31:0] pcPlus4M, pcBranchM, writedataM;
+wire [31:0] pcM, pcPlus4M, pcBranchM, writedataM;
     // aluoutM;
 wire [ 4:0] writeregM;
 // actual_takeM = branchE && zeroE
@@ -122,6 +111,16 @@ flopenrc #(32) FD_pc_4 (
     .q(pcPlus4D)
 );
 
+// pc
+flopenrc #(32) FD_pc (
+    .clk(clk),
+    .rst(rst),
+    .en(~stallD),
+    .clear(flushD),
+    .d(pcF),
+    .q(pcD)
+);
+
 // ----------------------------------------
 // Decode 
 
@@ -148,11 +147,7 @@ regfile regfile(
 	.wd3(resultW),
 
 	.rd1(rd1D),
-	.rd2(rd2D),
-    .r2(r2),
-    .r4(r4),
-    .r5(r5),
-    .r7(r7)
+	.rd2(rd2D)
 );
 
 //符号拓展
@@ -220,6 +215,15 @@ floprc #(1) DE_branch (
     .clear(flushE),
     .d(branchD),
     .q(branchE)
+);
+
+// 传递pc
+floprc #(32) DE_pc (
+    .clk(clk),
+    .rst(rst),
+    .clear(flushE),
+    .d(pcD),
+    .q(pcE)
 );
 
 // 传递pcbranch
@@ -330,6 +334,16 @@ flopenrc #(5) EM_writereg (
     .clear(flushM),
     .d(writeregE),
     .q(writeregM)
+);
+
+// pc
+flopenrc #(32) EM_pc (
+    .clk(clk),
+    .rst(rst),
+    .en(1'b1),
+    .clear(flushM),
+    .d(pcE),
+    .q(pcM)
 );
 
 // branch
@@ -445,6 +459,7 @@ hazard hazard(
     .regwriteW(regwriteW),
     .memtoregE(memtoregE),
     .memtoregM(memtoregM),
+    .pred_takeD(pred_takeD),
     .pred_wrongM(pred_wrongM),
     
     .forwardAE(forwardAE),
@@ -465,6 +480,9 @@ branch_predict_global bpg(
 	.stallD(stallD),
 	.flushE(flushE),
 	.flushM(flushM),
+    .pcF(pcF),
+    .pcE(pcE),
+    .pcM(pcM),
     .branchD(branchD),
 	.branchE(branchE),
     .branchM(branchM),

@@ -17,20 +17,7 @@ module datapath_tour_pred(
     input branchD,
     
     output wire [31:0] pc, aluoutM, mem_WriteData, resultW,
-    output wire stallF, stallD, flushD, flushE, flushM,
-	//! for debug
-    output wire pred_takeD, pred_takeM,
-    output wire pred_takeD_loc,
-    output wire pred_takeD_glo,
-    output wire pred_wrongM,
-    output wire [31:0] pcPlus4M,
-	output wire [31:0] pcBranchE,
-    output wire [31:0] pcBranchM,
-    output wire branchM,
-	output wire[31:0] r2,
-	output wire[31:0] r4,
-	output wire[31:0] r5,
-	output wire[31:0] r7
+    output wire stallF, stallD, flushD, flushE, flushM
 );
 
 
@@ -160,11 +147,7 @@ regfile regfile(
 	.wd3(resultW),
 
 	.rd1(rd1D),
-	.rd2(rd2D),
-    .r2(r2),
-    .r4(r4),
-    .r5(r5),
-    .r7(r7)
+	.rd2(rd2D)
 );
 
 //符号拓展
@@ -476,6 +459,7 @@ hazard hazard(
     .regwriteW(regwriteW),
     .memtoregE(memtoregE),
     .memtoregM(memtoregM),
+    .pred_takeD(pred_takeD),
     .pred_wrongM(pred_wrongM),
     
     .forwardAE(forwardAE),
@@ -497,6 +481,7 @@ branch_predict_tour bpt(
 	.flushE(flushE),
 	.flushM(flushM),
 	.pcF(pcF),
+    .pcD(pcD),
     .pcE(pcE),
 	.pcM(pcM),
     .branchD(branchD),
@@ -506,8 +491,6 @@ branch_predict_tour bpt(
     .actual_takeM(actual_takeM),
 
     .pred_takeD(pred_takeD),
-    .pred_takeD_loc(pred_takeD_loc),
-    .pred_takeD_glo(pred_takeD_glo),
     .pred_wrongM(pred_wrongM)
 );
 

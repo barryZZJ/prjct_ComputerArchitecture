@@ -2,30 +2,32 @@ module branch_predict_global(
     input wire clk, rst,
 
     input wire flushD, stallD, flushE, flushM,
+    input wire [31:0] pcF, pcE, pcM,
     input wire branchD, branchE, branchM,
     input wire actual_takeE, actual_takeM,
 
     output wire pred_takeD,
     output wire pred_wrongM
 );
-//* 只使用一个PHT
 
 wire pred_takeF;
 reg pred_takeF_r;
 
 // 定义参数
 parameter Strongly_not_taken = 2'b00, Weakly_not_taken = 2'b01, Weakly_taken = 2'b11, Strongly_taken = 2'b10;
-parameter GHR_LENGTH = 8;
+parameter GHR_LENGTH = 8; //* k
 
 reg [GHR_LENGTH-1:0] GHR_value;
 reg [GHR_LENGTH-1:0] GHR_value_prev; //* GHR 更新之前的值，用于训练PHT
 reg [1:0] PHT [(1<<GHR_LENGTH)-1 : 0]; //* 2^k个两位饱和计数器
 
 integer i;
+wire [(GHR_LENGTH-1):0] PHT_index;
 
 // ----------------------预测逻辑 start----------------------
 
-assign pred_takeF = PHT[GHR_value][1]; //* 在取指阶段预测是否会跳转，并经过流水线传递给译码阶段。
+assign PHT_index = GHR_value ^ pcF[9:2]; //* GHR有8位，故取pc[9:2]
+assign pred_takeF = PHT[PHT_index][1]; //* 在取指阶段预测是否会跳转，并经过流水线传递给译码阶段。
 
 // --------------pipeline------------------
     always @(posedge clk) begin
@@ -45,10 +47,10 @@ assign pred_takeF = PHT[GHR_value][1]; //* 在取指阶段预测是否会跳转�
 
 //* 在执行EX阶段判断预测结果是否正确；
 reg pred_wrongE;
-always @(posedge clk ) begin
+always @(posedge clk) begin
     if(rst | flushE)
         pred_wrongE <= 1'b0;
-    else if (branchE && pred_takeF_r != actual_takeE)
+    else if (branchE && PHT[GHR_value_prev ^ pcE[9:2]][1] != actual_takeE)
         pred_wrongE <= 1'b1;
     else
         pred_wrongE <= 1'b0;
@@ -72,6 +74,11 @@ end
 assign pred_wrongM = pred_wrongE;
 
 // ---------------------PHT初始化以及更新start---------------------
+
+wire [(GHR_LENGTH-1):0] update_PHT_index;
+
+assign update_PHT_index = GHR_value_prev ^ pcM[9:2]; //* GHR有8位，故取pc[9:2]
+
 //* MEM阶段根据实际的结果训练PHT
 always @(posedge clk) begin
     if(rst) begin
@@ -80,32 +87,32 @@ always @(posedge clk) begin
         end
     end
     else if (branchM) begin
-        case(PHT[GHR_value_prev])
+        case(PHT[update_PHT_index])
         //* 此处应该添加你的更新逻辑的代码
         //* 如果当前指令是branch指令，则根据更新了的GHR训练PHT
             Strongly_not_taken: begin
                 if (actual_takeM) 
-                    PHT[GHR_value_prev] <= Weakly_not_taken;
+                    PHT[update_PHT_index] <= Weakly_not_taken;
                 else
-                    PHT[GHR_value_prev] <= Strongly_not_taken;
+                    PHT[update_PHT_index] <= Strongly_not_taken;
             end
             Weakly_not_taken: begin
                 if (actual_takeM) 
-                    PHT[GHR_value_prev] <= Weakly_taken;
+                    PHT[update_PHT_index] <= Weakly_taken;
                 else
-                    PHT[GHR_value_prev] <= Strongly_not_taken;
+                    PHT[update_PHT_index] <= Strongly_not_taken;
             end
             Weakly_taken: begin
                 if (actual_takeM) 
-                    PHT[GHR_value_prev] <= Strongly_taken;
+                    PHT[update_PHT_index] <= Strongly_taken;
                 else
-                    PHT[GHR_value_prev] <= Weakly_not_taken;
+                    PHT[update_PHT_index] <= Weakly_not_taken;
             end
             Strongly_taken: begin
                 if (actual_takeM) 
-                    PHT[GHR_value_prev] <= Strongly_taken;
+                    PHT[update_PHT_index] <= Strongly_taken;
                 else
-                    PHT[GHR_value_prev] <= Weakly_taken;
+                    PHT[update_PHT_index] <= Weakly_taken;
             end
         endcase 
     end

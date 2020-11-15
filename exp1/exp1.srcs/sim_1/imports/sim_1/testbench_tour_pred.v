@@ -7,14 +7,6 @@ module testbench_tour_pred();
 	wire [31:0] instr, pc, resultW;
 	wire [4:0] rs, rt, rd;
 	wire [31:0] writedata,dataadr;
-	wire pred_takeD, pred_takeM;
-	wire pred_takeD_loc, pred_takeD_glo;
-	wire pred_wrongM;
-	wire [31:0] pcPlus4M;
-	wire [31:0] r2, r4, r5, r7;
-	wire [31:0] pcBranchE, pcBranchM;
-	wire jumpD;
-	wire branchM;
 	wire memwrite;
 	wire stallF, stallD, flushD, flushE, flushM;
 
@@ -34,21 +26,7 @@ module testbench_tour_pred();
 		.stallD(stallD),
 		.flushD(flushD),
 		.flushE(flushE),
-		.flushM(flushM),
-		.pcPlus4M(pcPlus4M),
-		.pred_takeD(pred_takeD),
-		.pred_takeM(pred_takeM),
-		.pred_takeD_loc(pred_takeD_loc),
-		.pred_takeD_glo(pred_takeD_glo),
-		.pred_wrongM(pred_wrongM),
-		.pcBranchE(pcBranchE),
-		.pcBranchM(pcBranchM),
-		.branchM(branchM),
-		.r2(r2),
-		.r4(r4),
-		.r5(r5),
-		.r7(r7),
-		.jumpD(jumpD)
+		.flushM(flushM)
 	);
 
 	initial begin 
