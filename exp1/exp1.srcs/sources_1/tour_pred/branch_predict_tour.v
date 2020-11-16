@@ -176,7 +176,7 @@ reg pred_wrongE_glo;
 always @(posedge clk ) begin
     if(rst | flushE)
         pred_wrongE_glo <= 1'b0;
-    else if (branchE && pred_takeF_r_glo != actual_takeE)
+    else if (branchE && PHTg[GHR_value_prev ^ pcE[9:2]][1] != actual_takeE)
         pred_wrongE_glo <= 1'b1;
     else
         pred_wrongE_glo <= 1'b0;

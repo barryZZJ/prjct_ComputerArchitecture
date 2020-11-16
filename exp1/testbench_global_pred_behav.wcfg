@@ -11,13 +11,13 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="280333fs"></ZoomStartTime>
-      <ZoomEndTime time="435934fs"></ZoomEndTime>
-      <Cursor1Time time="358133fs"></Cursor1Time>
+      <ZoomStartTime time="298226fs"></ZoomStartTime>
+      <ZoomEndTime time="532027fs"></ZoomEndTime>
+      <Cursor1Time time="300000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="209"></NameColumnWidth>
-      <ValueColumnWidth column_width="155"></ValueColumnWidth>
+      <ValueColumnWidth column_width="150"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="35" />
    <wvobject fp_name="/testbench_global_pred/clk" type="logic">
@@ -36,21 +36,17 @@
       <obj_property name="ElementShortName">pc[31:0]</obj_property>
       <obj_property name="ObjectShortName">pc[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/testbench_global_pred/dut/mips_global_pred/dpg/bpg/clk" type="logic">
-      <obj_property name="ElementShortName">clk</obj_property>
-      <obj_property name="ObjectShortName">clk</obj_property>
+   <wvobject fp_name="/testbench_global_pred/dut/mips_global_pred/dpg/bpg/pred_takeD" type="logic">
+      <obj_property name="ElementShortName">pred_takeD</obj_property>
+      <obj_property name="ObjectShortName">pred_takeD</obj_property>
    </wvobject>
-   <wvobject fp_name="/testbench_global_pred/dut/mips_global_pred/dpg/bpg/rst" type="logic">
-      <obj_property name="ElementShortName">rst</obj_property>
-      <obj_property name="ObjectShortName">rst</obj_property>
+   <wvobject fp_name="/testbench_global_pred/dut/mips_global_pred/dpg/bpg/pred_wrongM" type="logic">
+      <obj_property name="ElementShortName">pred_wrongM</obj_property>
+      <obj_property name="ObjectShortName">pred_wrongM</obj_property>
    </wvobject>
    <wvobject fp_name="/testbench_global_pred/dut/mips_global_pred/dpg/bpg/flushD" type="logic">
       <obj_property name="ElementShortName">flushD</obj_property>
       <obj_property name="ObjectShortName">flushD</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench_global_pred/dut/mips_global_pred/dpg/bpg/stallD" type="logic">
-      <obj_property name="ElementShortName">stallD</obj_property>
-      <obj_property name="ObjectShortName">stallD</obj_property>
    </wvobject>
    <wvobject fp_name="/testbench_global_pred/dut/mips_global_pred/dpg/bpg/flushE" type="logic">
       <obj_property name="ElementShortName">flushE</obj_property>
@@ -59,6 +55,18 @@
    <wvobject fp_name="/testbench_global_pred/dut/mips_global_pred/dpg/bpg/flushM" type="logic">
       <obj_property name="ElementShortName">flushM</obj_property>
       <obj_property name="ObjectShortName">flushM</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_global_pred/dut/mips_global_pred/dpg/bpg/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_global_pred/dut/mips_global_pred/dpg/bpg/rst" type="logic">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_global_pred/dut/mips_global_pred/dpg/bpg/stallD" type="logic">
+      <obj_property name="ElementShortName">stallD</obj_property>
+      <obj_property name="ObjectShortName">stallD</obj_property>
    </wvobject>
    <wvobject fp_name="/testbench_global_pred/dut/mips_global_pred/dpg/bpg/pcF" type="array">
       <obj_property name="ElementShortName">pcF[31:0]</obj_property>
@@ -96,17 +104,9 @@
       <obj_property name="ElementShortName">actual_takeM</obj_property>
       <obj_property name="ObjectShortName">actual_takeM</obj_property>
    </wvobject>
-   <wvobject fp_name="/testbench_global_pred/dut/mips_global_pred/dpg/bpg/pred_takeD" type="logic">
-      <obj_property name="ElementShortName">pred_takeD</obj_property>
-      <obj_property name="ObjectShortName">pred_takeD</obj_property>
-   </wvobject>
    <wvobject fp_name="/testbench_global_pred/dut/mips_global_pred/dpg/bpg/pred_wrongE" type="logic">
       <obj_property name="ElementShortName">pred_wrongE</obj_property>
       <obj_property name="ObjectShortName">pred_wrongE</obj_property>
-   </wvobject>
-   <wvobject fp_name="/testbench_global_pred/dut/mips_global_pred/dpg/bpg/pred_wrongM" type="logic">
-      <obj_property name="ElementShortName">pred_wrongM</obj_property>
-      <obj_property name="ObjectShortName">pred_wrongM</obj_property>
    </wvobject>
    <wvobject fp_name="/testbench_global_pred/dut/mips_global_pred/dpg/bpg/pred_takeF" type="logic">
       <obj_property name="ElementShortName">pred_takeF</obj_property>
