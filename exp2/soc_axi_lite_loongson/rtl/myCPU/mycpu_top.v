@@ -350,4 +350,15 @@ cpu_axi_interface cpu_axi_interface(
     .bready(bready)
 );
 
+//-------------debug---------------
+Analysis analysis(
+clk, rst,
+cpu_inst_req,
+cpu_inst_data_ok,
+cpu_data_req,
+cpu_data_data_ok,
+no_dcache
+);
+//-------------debug---------------
+
 endmodule

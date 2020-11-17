@@ -1,4 +1,4 @@
-module d_cache (
+module d_cache_wb (
     input wire clk, rst,
     //mips core
     input         cpu_data_req     , //* 是不是数据请求(load 或 store指令)。一个周期后就清除了
