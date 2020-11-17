@@ -1,4 +1,4 @@
-module d_cache (
+module d_cache_wt (
     input wire clk, rst,
     //mips core
     input         cpu_data_req     ,

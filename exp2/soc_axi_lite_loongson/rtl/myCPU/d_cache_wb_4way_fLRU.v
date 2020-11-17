@@ -1,4 +1,4 @@
-module d_cache_4way_fLRU (
+module d_cache (
     input wire clk, rst,
     //mips core
     input         cpu_data_req     , // 是不是数据请求(load 或 store指令)。一个周期后就清除了
@@ -63,8 +63,11 @@ module d_cache_4way_fLRU (
     assign miss = ~hit;
 
     //* 后面的cache处理应访问哪一路
-    wire c_way;
-    assign c_way = hit ? (c_valid[0] & (c_tag[0] == tag) ? 1'b0 : 1'b1) : //* hit，选hit的那一路
+    wire c_way[1:0];
+    assign c_way = hit ? (c_valid[0] & (c_tag[0] == tag) ? 2'b00 : //* hit，选hit的那一路
+                          c_valid[1] & (c_tag[1] == tag) ? 2'b01 :
+                          c_valid[2] & (c_tag[2] == tag) ? 2'b10 :
+                          2'b11) : 
                    tree;  //* miss，选伪LRU查找树索引出的最近未使用的那一路（索引值即tree的值）
 
     // cpu请求是不是读或写请求(是不是load或store指令)
