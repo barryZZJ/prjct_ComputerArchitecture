@@ -43,17 +43,22 @@ module d_cache_2way (
     assign tag = cpu_data_addr[31 : INDEX_WIDTH + OFFSET_WIDTH];
 
     //访问Cache line
-    wire c_valid[1:0];
-    wire c_dirty[1:0]; // 是否修改过
-    wire c_ru[1:0]; //* recently used
-    wire [TAG_WIDTH-1:0] c_tag[1:0];
-    wire [31:0] c_block[1:0];
+    wire                 c_valid[1:0];
+    wire                 c_dirty[1:0]; // 是否修改过
+    wire                 c_ru   [1:0]; //* recently used
+    wire [TAG_WIDTH-1:0] c_tag  [1:0];
+    wire [31:0]          c_block[1:0];
 
-    assign c_valid = cache_valid[index];
-    assign c_dirty = cache_dirty[index];
-    assign c_ru    = cache_ru   [index];
-    assign c_tag   = cache_tag  [index];
-    assign c_block = cache_block[index];
+    assign c_valid[0] = cache_valid[index][0];
+    assign c_valid[1] = cache_valid[index][1];
+    assign c_dirty[0] = cache_dirty[index][0];
+    assign c_dirty[1] = cache_dirty[index][1];
+    assign c_ru   [0] = cache_ru   [index][0];
+    assign c_ru   [1] = cache_ru   [index][1];
+    assign c_tag  [0] = cache_tag  [index][0];
+    assign c_tag  [1] = cache_tag  [index][1];
+    assign c_block[0] = cache_block[index][0];
+    assign c_block[1] = cache_block[index][1];
 
     //判断是否命中
     wire hit, miss;

@@ -44,15 +44,27 @@ module d_cache (
     assign tag = cpu_data_addr[31 : INDEX_WIDTH + OFFSET_WIDTH];
 
     //访问Cache line
-    wire c_valid[3:0];
-    wire c_dirty[3:0]; // 是否修改过
-    wire [TAG_WIDTH-1:0] c_tag[3:0];
-    wire [31:0] c_block[3:0];
+    wire                 c_valid[3:0];
+    wire                 c_dirty[3:0]; // 是否修改过
+    wire [TAG_WIDTH-1:0] c_tag  [3:0];
+    wire [31:0]          c_block[3:0];
 
-    assign c_valid = cache_valid[index];
-    assign c_dirty = cache_dirty[index];
-    assign c_tag   = cache_tag  [index];
-    assign c_block = cache_block[index];
+    assign c_valid[0] = cache_valid[index][0];
+    assign c_valid[1] = cache_valid[index][1];
+    assign c_valid[2] = cache_valid[index][2];
+    assign c_valid[3] = cache_valid[index][3];
+    assign c_dirty[0] = cache_dirty[index][0];
+    assign c_dirty[1] = cache_dirty[index][1];
+    assign c_dirty[2] = cache_dirty[index][2];
+    assign c_dirty[3] = cache_dirty[index][3];
+    assign c_tag  [0] = cache_tag  [index][0];
+    assign c_tag  [1] = cache_tag  [index][1];
+    assign c_tag  [2] = cache_tag  [index][2];
+    assign c_tag  [3] = cache_tag  [index][3];
+    assign c_block[0] = cache_block[index][0];
+    assign c_block[1] = cache_block[index][1];
+    assign c_block[2] = cache_block[index][2];
+    assign c_block[3] = cache_block[index][3];
 
     //判断是否命中
     wire hit, miss;
@@ -63,7 +75,7 @@ module d_cache (
     assign miss = ~hit;
 
     //* 后面的cache处理应访问哪一路
-    wire c_way[1:0];
+    wire [1:0] c_way;
     assign c_way = hit ? (c_valid[0] & (c_tag[0] == tag) ? 2'b00 : //* hit，选hit的那一路
                           c_valid[1] & (c_tag[1] == tag) ? 2'b01 :
                           c_valid[2] & (c_tag[2] == tag) ? 2'b10 :
