@@ -1,4 +1,4 @@
-module d_cache_4way_fLRU (
+module d_cache_2way (
     input wire clk, rst,
     //mips core
     input         cpu_data_req     , // 是不是数据请求(load 或 store指令)。一个周期后就清除了
@@ -26,16 +26,12 @@ module d_cache_4way_fLRU (
     localparam CACHE_DEEPTH = 1 << INDEX_WIDTH;
     
     //Cache存储单元
-    //* 四路，所以cache扩大到四倍
-    reg                 cache_valid [CACHE_DEEPTH - 1 : 0][3:0];
-    reg                 cache_dirty [CACHE_DEEPTH - 1 : 0][3:0]; // 是否修改过
-    reg [TAG_WIDTH-1:0] cache_tag   [CACHE_DEEPTH - 1 : 0][3:0];
-    reg [31:0]          cache_block [CACHE_DEEPTH - 1 : 0][3:0];
-    //* 伪LRU的查找树，对于 4 路的结构，每一个 cache set 需要 3bit 来存储最近使用信息。
-    reg [2:0]           tree_table  [CACHE_DEEPTH - 1 : 0];
-    //* tree 为对应cache set的查找树, tree[2]为根节点, tree[1]右子树，tree[0]左子树
-    wire [2:0] tree;
-    assign tree = tree_table[index];
+    //* 两路，所以cache扩大一倍
+    reg                 cache_valid [CACHE_DEEPTH - 1 : 0][1:0];
+    reg                 cache_dirty [CACHE_DEEPTH - 1 : 0][1:0]; // 是否修改过
+    reg                 cache_ru    [CACHE_DEEPTH - 1 : 0][1:0]; //* recently used
+    reg [TAG_WIDTH-1:0] cache_tag   [CACHE_DEEPTH - 1 : 0][1:0];
+    reg [31:0]          cache_block [CACHE_DEEPTH - 1 : 0][1:0];
 
     //访问地址分解
     wire [OFFSET_WIDTH-1:0] offset;
@@ -47,48 +43,34 @@ module d_cache_4way_fLRU (
     assign tag = cpu_data_addr[31 : INDEX_WIDTH + OFFSET_WIDTH];
 
     //访问Cache line
-    wire                 c_valid[3:0];
-    wire                 c_dirty[3:0]; // 是否修改过
-    wire [TAG_WIDTH-1:0] c_tag  [3:0];
-    wire [31:0]          c_block[3:0];
+    wire                 c_valid[1:0];
+    wire                 c_dirty[1:0]; // 是否修改过
+    wire                 c_ru   [1:0]; //* recently used
+    wire [TAG_WIDTH-1:0] c_tag  [1:0];
+    wire [31:0]          c_block[1:0];
 
     assign c_valid[0] = cache_valid[index][0];
     assign c_valid[1] = cache_valid[index][1];
-    assign c_valid[2] = cache_valid[index][2];
-    assign c_valid[3] = cache_valid[index][3];
     assign c_dirty[0] = cache_dirty[index][0];
     assign c_dirty[1] = cache_dirty[index][1];
-    assign c_dirty[2] = cache_dirty[index][2];
-    assign c_dirty[3] = cache_dirty[index][3];
+    assign c_ru   [0] = cache_ru   [index][0];
+    assign c_ru   [1] = cache_ru   [index][1];
     assign c_tag  [0] = cache_tag  [index][0];
     assign c_tag  [1] = cache_tag  [index][1];
-    assign c_tag  [2] = cache_tag  [index][2];
-    assign c_tag  [3] = cache_tag  [index][3];
     assign c_block[0] = cache_block[index][0];
     assign c_block[1] = cache_block[index][1];
-    assign c_block[2] = cache_block[index][2];
-    assign c_block[3] = cache_block[index][3];
 
     //判断是否命中
     wire hit, miss;
-    assign hit = c_valid[0] & (c_tag[0] == tag) | 
-                 c_valid[1] & (c_tag[1] == tag) |
-                 c_valid[2] & (c_tag[2] == tag) |
-                 c_valid[3] & (c_tag[3] == tag);  //* cache line某一路中的valid位为1，且tag与地址中tag相等
+    assign hit = c_valid[0] & (c_tag[0] == tag) | c_valid[1] & (c_tag[1] == tag);  //* cache line有一路中的valid位为1，且tag与地址中tag相等
     assign miss = ~hit;
 
     //* 后面的cache处理应访问哪一路
-    wire [1:0] c_way;
+    wire c_way;
     //* 1. hit，选hit的那一路
-    //* 2. miss，选伪LRU查找树索引出的最近未使用的那一路:
-    //* 索引右子树: tree[2]==0 -> c_way = {tree[2], tree[1]}
-    //* 索引左子树: tree[2]==1 -> c_way = {tree[2], tree[0]}  
-    assign c_way = hit ? (c_valid[0] & (c_tag[0] == tag) ? 2'b00 :
-                          c_valid[1] & (c_tag[1] == tag) ? 2'b01 :
-                          c_valid[2] & (c_tag[2] == tag) ? 2'b10 :
-                          2'b11) : 
-                   tree[2] ? {tree[2], tree[0]} : //* 索引左子树
-                             {tree[2], tree[1]};  //* 索引右子树
+    //* 2. miss，选最近未使用的那一路
+    assign c_way = hit ? (c_valid[0] & (c_tag[0] == tag) ? 1'b0 : 1'b1) : 
+                   c_ru[0] ? 1'b1 : 1'b0; 
 
     // cpu请求是不是读或写请求(是不是load或store指令)
     wire load, store;
@@ -258,13 +240,12 @@ module d_cache_4way_fLRU (
     integer t, y;
     always @(posedge clk) begin
         if(rst) begin
-            for(t=0; t<CACHE_DEEPTH; t=t+1) begin   //刚开始将Cache初始化为无效，dirty 初始化为 0
-                for (y = 0; y<4; y=y+1) begin
+            for(t=0; t<CACHE_DEEPTH; t=t+1) begin   //刚开始将Cache初始化为无效，dirty 初始化为 0，//* ru 初始化为0
+                for (y = 0; y<2; y=y+1) begin
                     cache_valid[t][y] <= 0;
                     cache_dirty[t][y] <= 0;
+                    cache_ru   [t][y] <= 0;
                 end
-                //* tree初始化为000
-                tree_table[t] <= 3'b000;
             end
         end
         else begin
@@ -283,16 +264,9 @@ module d_cache_4way_fLRU (
             end
 
             if ((load | store) & isIDLE & (hit | in_RM)) begin
-                //* load 或 store指令，hit进入IDLE状态 或 从读内存回到IDLE后，更新伪LRU表
-                //* 分析：
-                //* c_way == 2'b00, 使用了way0，更新右子树，{tree[2], [1]} 更新为 2'b11;
-                //* c_way == 2'b01, 使用了way1，更新右子树，{tree[2], [1]} 更新为 2'b10;
-                //* c_way == 2'b10, 使用了way2，更新左子树，{tree[2], [0]} 更新为 2'b01;
-                //* c_way == 2'b11, 使用了way3，更新左子树，{tree[2], [0]} 更新为 2'b00;
-                if (c_way[1] == 1'b0)
-                    {tree_table[index][2], tree_table[index][1]} <= ~c_way;
-                else
-                    {tree_table[index][2], tree_table[index][0]} <= ~c_way;
+                //* load 或 store指令，hit进入IDLE状态 或 从读内存回到IDLE后，将最近使用情况更新
+                cache_ru[index][c_way]   <= 1'b1; //* c_way 路最近使用了
+                cache_ru[index][1-c_way] <= 1'b1; //* 1-c_way 路最近未使用
             end
         end
     end
