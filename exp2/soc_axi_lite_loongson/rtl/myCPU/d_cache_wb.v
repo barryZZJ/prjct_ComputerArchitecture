@@ -59,7 +59,7 @@ module d_cache_wb (
     //* cpu请求是不是读或写请求(是不是load或store指令)
     wire load, store;
     assign store = cpu_data_wr;
-    assign load = ~store;
+    assign load = cpu_data_req & ~store; // 是数据请求，且不是store，那么就是load
 
     //* cache当前位置是否dirty
     wire dirty, clean;

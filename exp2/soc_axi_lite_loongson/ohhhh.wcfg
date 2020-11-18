@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="778383fs"></ZoomStartTime>
-      <ZoomEndTime time="10923384fs"></ZoomEndTime>
-      <Cursor1Time time="2963383fs"></Cursor1Time>
+      <ZoomStartTime time="237110405fs"></ZoomStartTime>
+      <ZoomEndTime time="239314919fs"></ZoomEndTime>
+      <Cursor1Time time="238947500fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="247"></NameColumnWidth>
+      <NameColumnWidth column_width="237"></NameColumnWidth>
       <ValueColumnWidth column_width="72"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="7" />
+   <WVObjectSize size="23" />
    <wvobject fp_name="/tb_top/soc_lite/u_cpu/rst" type="logic">
       <obj_property name="ElementShortName">rst</obj_property>
       <obj_property name="ObjectShortName">rst</obj_property>
@@ -134,7 +134,6 @@
    <wvobject fp_name="group170" type="group">
       <obj_property name="label">I_Cache</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="isExpanded"></obj_property>
       <wvobject fp_name="/tb_top/soc_lite/u_cpu/cache/i_cache/clk" type="logic">
          <obj_property name="ElementShortName">clk</obj_property>
          <obj_property name="ObjectShortName">clk</obj_property>
@@ -326,9 +325,17 @@
          <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
          <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
-      <wvobject fp_name="/tb_top/soc_lite/u_cpu/cache/d_cache/write" type="logic">
-         <obj_property name="ElementShortName">write</obj_property>
-         <obj_property name="ObjectShortName">write</obj_property>
+      <wvobject fp_name="/tb_top/soc_lite/u_cpu/cache/d_cache/tree" type="array">
+         <obj_property name="ElementShortName">tree[2:0]</obj_property>
+         <obj_property name="ObjectShortName">tree[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top/soc_lite/u_cpu/cache/d_cache/tree_table" type="array">
+         <obj_property name="ElementShortName">tree_table[1023:0][2:0]</obj_property>
+         <obj_property name="ObjectShortName">tree_table[1023:0][2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_top/soc_lite/u_cpu/cache/d_cache/c_way" type="array">
+         <obj_property name="ElementShortName">c_way[1:0]</obj_property>
+         <obj_property name="ObjectShortName">c_way[1:0]</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_top/soc_lite/u_cpu/cache/d_cache/state" type="array">
          <obj_property name="ElementShortName">state[1:0]</obj_property>
@@ -338,16 +345,16 @@
          <obj_property name="label">Cache Data</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <wvobject fp_name="/tb_top/soc_lite/u_cpu/cache/d_cache/cache_valid" type="array">
-            <obj_property name="ElementShortName">cache_valid[1023:0]</obj_property>
-            <obj_property name="ObjectShortName">cache_valid[1023:0]</obj_property>
+            <obj_property name="ElementShortName">cache_valid[1023:0][3:0]</obj_property>
+            <obj_property name="ObjectShortName">cache_valid[1023:0][3:0]</obj_property>
          </wvobject>
          <wvobject fp_name="/tb_top/soc_lite/u_cpu/cache/d_cache/cache_tag" type="array">
-            <obj_property name="ElementShortName">cache_tag[1023:0][19:0]</obj_property>
-            <obj_property name="ObjectShortName">cache_tag[1023:0][19:0]</obj_property>
+            <obj_property name="ElementShortName">cache_tag[1023:0][3:0][19:0]</obj_property>
+            <obj_property name="ObjectShortName">cache_tag[1023:0][3:0][19:0]</obj_property>
          </wvobject>
          <wvobject fp_name="/tb_top/soc_lite/u_cpu/cache/d_cache/cache_block" type="array">
-            <obj_property name="ElementShortName">cache_block[1023:0][31:0]</obj_property>
-            <obj_property name="ObjectShortName">cache_block[1023:0][31:0]</obj_property>
+            <obj_property name="ElementShortName">cache_block[1023:0][3:0][31:0]</obj_property>
+            <obj_property name="ObjectShortName">cache_block[1023:0][3:0][31:0]</obj_property>
          </wvobject>
       </wvobject>
       <wvobject fp_name="group226" type="group">
@@ -365,21 +372,17 @@
             <obj_property name="ElementShortName">tag[19:0]</obj_property>
             <obj_property name="ObjectShortName">tag[19:0]</obj_property>
          </wvobject>
-         <wvobject fp_name="/tb_top/soc_lite/u_cpu/cache/d_cache/c_valid" type="logic">
-            <obj_property name="ElementShortName">c_valid</obj_property>
-            <obj_property name="ObjectShortName">c_valid</obj_property>
+         <wvobject fp_name="/tb_top/soc_lite/u_cpu/cache/d_cache/c_valid" type="array">
+            <obj_property name="ElementShortName">c_valid[3:0]</obj_property>
+            <obj_property name="ObjectShortName">c_valid[3:0]</obj_property>
          </wvobject>
          <wvobject fp_name="/tb_top/soc_lite/u_cpu/cache/d_cache/c_tag" type="array">
-            <obj_property name="ElementShortName">c_tag[19:0]</obj_property>
-            <obj_property name="ObjectShortName">c_tag[19:0]</obj_property>
+            <obj_property name="ElementShortName">c_tag[3:0][19:0]</obj_property>
+            <obj_property name="ObjectShortName">c_tag[3:0][19:0]</obj_property>
          </wvobject>
          <wvobject fp_name="/tb_top/soc_lite/u_cpu/cache/d_cache/c_block" type="array">
-            <obj_property name="ElementShortName">c_block[31:0]</obj_property>
-            <obj_property name="ObjectShortName">c_block[31:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/tb_top/soc_lite/u_cpu/cache/d_cache/read_req" type="logic">
-            <obj_property name="ElementShortName">read_req</obj_property>
-            <obj_property name="ObjectShortName">read_req</obj_property>
+            <obj_property name="ElementShortName">c_block[3:0][31:0]</obj_property>
+            <obj_property name="ObjectShortName">c_block[3:0][31:0]</obj_property>
          </wvobject>
          <wvobject fp_name="/tb_top/soc_lite/u_cpu/cache/d_cache/addr_rcv" type="logic">
             <obj_property name="ElementShortName">addr_rcv</obj_property>
@@ -388,10 +391,6 @@
          <wvobject fp_name="/tb_top/soc_lite/u_cpu/cache/d_cache/read_finish" type="logic">
             <obj_property name="ElementShortName">read_finish</obj_property>
             <obj_property name="ObjectShortName">read_finish</obj_property>
-         </wvobject>
-         <wvobject fp_name="/tb_top/soc_lite/u_cpu/cache/d_cache/write_req" type="logic">
-            <obj_property name="ElementShortName">write_req</obj_property>
-            <obj_property name="ObjectShortName">write_req</obj_property>
          </wvobject>
          <wvobject fp_name="/tb_top/soc_lite/u_cpu/cache/d_cache/waddr_rcv" type="logic">
             <obj_property name="ElementShortName">waddr_rcv</obj_property>
@@ -406,5 +405,77 @@
             <obj_property name="ObjectShortName">write_mask[3:0]</obj_property>
          </wvobject>
       </wvobject>
+   </wvobject>
+   <wvobject fp_name="/tb_top/soc_lite/u_cpu/analysis/inst_req_total" type="array">
+      <obj_property name="ElementShortName">inst_req_total[31:0]</obj_property>
+      <obj_property name="ObjectShortName">inst_req_total[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/soc_lite/u_cpu/analysis/data_req_total" type="array">
+      <obj_property name="ElementShortName">data_req_total[31:0]</obj_property>
+      <obj_property name="ObjectShortName">data_req_total[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/soc_lite/u_cpu/analysis/i_cache_hit_count" type="array">
+      <obj_property name="ElementShortName">i_cache_hit_count[31:0]</obj_property>
+      <obj_property name="ObjectShortName">i_cache_hit_count[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/soc_lite/u_cpu/analysis/d_cache_hit_count" type="array">
+      <obj_property name="ElementShortName">d_cache_hit_count[31:0]</obj_property>
+      <obj_property name="ObjectShortName">d_cache_hit_count[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/soc_lite/u_cpu/cache/d_cache/c_way" type="array">
+      <obj_property name="ElementShortName">c_way[1:0]</obj_property>
+      <obj_property name="ObjectShortName">c_way[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/soc_lite/u_cpu/analysis/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/soc_lite/u_cpu/analysis/rst" type="logic">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/soc_lite/u_cpu/analysis/cpu_inst_req" type="logic">
+      <obj_property name="ElementShortName">cpu_inst_req</obj_property>
+      <obj_property name="ObjectShortName">cpu_inst_req</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/soc_lite/u_cpu/analysis/cpu_inst_data_ok" type="logic">
+      <obj_property name="ElementShortName">cpu_inst_data_ok</obj_property>
+      <obj_property name="ObjectShortName">cpu_inst_data_ok</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/soc_lite/u_cpu/analysis/cpu_data_req" type="logic">
+      <obj_property name="ElementShortName">cpu_data_req</obj_property>
+      <obj_property name="ObjectShortName">cpu_data_req</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/soc_lite/u_cpu/analysis/cpu_data_data_ok" type="logic">
+      <obj_property name="ElementShortName">cpu_data_data_ok</obj_property>
+      <obj_property name="ObjectShortName">cpu_data_data_ok</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/soc_lite/u_cpu/analysis/no_dcache" type="logic">
+      <obj_property name="ElementShortName">no_dcache</obj_property>
+      <obj_property name="ObjectShortName">no_dcache</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/soc_lite/u_cpu/analysis/inst_req_total" type="array">
+      <obj_property name="ElementShortName">inst_req_total[31:0]</obj_property>
+      <obj_property name="ObjectShortName">inst_req_total[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/soc_lite/u_cpu/analysis/data_req_total" type="array">
+      <obj_property name="ElementShortName">data_req_total[31:0]</obj_property>
+      <obj_property name="ObjectShortName">data_req_total[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/soc_lite/u_cpu/analysis/i_cache_hit_count" type="array">
+      <obj_property name="ElementShortName">i_cache_hit_count[31:0]</obj_property>
+      <obj_property name="ObjectShortName">i_cache_hit_count[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/soc_lite/u_cpu/analysis/d_cache_hit_count" type="array">
+      <obj_property name="ElementShortName">d_cache_hit_count[31:0]</obj_property>
+      <obj_property name="ObjectShortName">d_cache_hit_count[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
 </wave_config>

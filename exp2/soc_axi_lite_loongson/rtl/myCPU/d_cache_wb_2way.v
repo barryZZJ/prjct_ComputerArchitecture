@@ -1,4 +1,4 @@
-module d_cache (
+module d_cache_2way (
     input wire clk, rst,
     //mips core
     input         cpu_data_req     , // 是不是数据请求(load 或 store指令)。一个周期后就清除了
@@ -68,14 +68,14 @@ module d_cache (
     //* 后面的cache处理应访问哪一路
     wire c_way;
     //* 1. hit，选hit的那一路
-    //* 2. miss，选最近未使用的那一路
+    //* 2. miss，选不是最近使用的那一路(c_ru[0]==1，0路最近使用 -> c_way=1路)
     assign c_way = hit ? (c_valid[0] & (c_tag[0] == tag) ? 1'b0 : 1'b1) : 
                    c_ru[0] ? 1'b1 : 1'b0; 
 
     // cpu请求是不是读或写请求(是不是load或store指令)
     wire load, store;
     assign store = cpu_data_wr;
-    assign load = ~store;
+    assign load = cpu_data_req & ~store; // 是数据请求，且不是store，那么就是load
 
     //* cache当前位置是否dirty
     wire dirty, clean;
@@ -266,7 +266,7 @@ module d_cache (
             if ((load | store) & isIDLE & (hit | in_RM)) begin
                 //* load 或 store指令，hit进入IDLE状态 或 从读内存回到IDLE后，将最近使用情况更新
                 cache_ru[index][c_way]   <= 1'b1; //* c_way 路最近使用了
-                cache_ru[index][1-c_way] <= 1'b1; //* 1-c_way 路最近未使用
+                cache_ru[index][1-c_way] <= 1'b0; //* 1-c_way 路最近未使用
             end
         end
     end
