@@ -3,21 +3,309 @@
    <wave_state>
    </wave_state>
    <db_ref_list>
-      <db_ref path="testbench_local_pred_behav.wdb" id="1">
+      <db_ref path="testbench_tour_pred_behav.wdb" id="1">
          <top_modules>
             <top_module name="glbl" />
-            <top_module name="testbench_local_pred" />
+            <top_module name="testbench_tour_pred" />
          </top_modules>
       </db_ref>
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="9090001fs"></ZoomEndTime>
+      <ZoomEndTime time="525043fs"></ZoomEndTime>
       <Cursor1Time time="650000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="161"></NameColumnWidth>
+      <NameColumnWidth column_width="156"></NameColumnWidth>
       <ValueColumnWidth column_width="72"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="0" />
+   <WVObjectSize size="72" />
+   <wvobject fp_name="/testbench_tour_pred/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/rst" type="logic">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/instr" type="array">
+      <obj_property name="ElementShortName">instr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">instr[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/pc" type="array">
+      <obj_property name="ElementShortName">pc[31:0]</obj_property>
+      <obj_property name="ObjectShortName">pc[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/resultW" type="array">
+      <obj_property name="ElementShortName">resultW[31:0]</obj_property>
+      <obj_property name="ObjectShortName">resultW[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/rs" type="array">
+      <obj_property name="ElementShortName">rs[4:0]</obj_property>
+      <obj_property name="ObjectShortName">rs[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/rt" type="array">
+      <obj_property name="ElementShortName">rt[4:0]</obj_property>
+      <obj_property name="ObjectShortName">rt[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/rd" type="array">
+      <obj_property name="ElementShortName">rd[4:0]</obj_property>
+      <obj_property name="ObjectShortName">rd[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/writedata" type="array">
+      <obj_property name="ElementShortName">writedata[31:0]</obj_property>
+      <obj_property name="ObjectShortName">writedata[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dataadr" type="array">
+      <obj_property name="ElementShortName">dataadr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">dataadr[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/memwrite" type="logic">
+      <obj_property name="ElementShortName">memwrite</obj_property>
+      <obj_property name="ObjectShortName">memwrite</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/stallF" type="logic">
+      <obj_property name="ElementShortName">stallF</obj_property>
+      <obj_property name="ObjectShortName">stallF</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/stallD" type="logic">
+      <obj_property name="ElementShortName">stallD</obj_property>
+      <obj_property name="ObjectShortName">stallD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/flushD" type="logic">
+      <obj_property name="ElementShortName">flushD</obj_property>
+      <obj_property name="ObjectShortName">flushD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/flushE" type="logic">
+      <obj_property name="ElementShortName">flushE</obj_property>
+      <obj_property name="ObjectShortName">flushE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/flushM" type="logic">
+      <obj_property name="ElementShortName">flushM</obj_property>
+      <obj_property name="ObjectShortName">flushM</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/rst" type="logic">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/flushD" type="logic">
+      <obj_property name="ElementShortName">flushD</obj_property>
+      <obj_property name="ObjectShortName">flushD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/stallD" type="logic">
+      <obj_property name="ElementShortName">stallD</obj_property>
+      <obj_property name="ObjectShortName">stallD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/flushE" type="logic">
+      <obj_property name="ElementShortName">flushE</obj_property>
+      <obj_property name="ObjectShortName">flushE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/flushM" type="logic">
+      <obj_property name="ElementShortName">flushM</obj_property>
+      <obj_property name="ObjectShortName">flushM</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/pcF" type="array">
+      <obj_property name="ElementShortName">pcF[31:0]</obj_property>
+      <obj_property name="ObjectShortName">pcF[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/pcD" type="array">
+      <obj_property name="ElementShortName">pcD[31:0]</obj_property>
+      <obj_property name="ObjectShortName">pcD[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/pcE" type="array">
+      <obj_property name="ElementShortName">pcE[31:0]</obj_property>
+      <obj_property name="ObjectShortName">pcE[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/pcM" type="array">
+      <obj_property name="ElementShortName">pcM[31:0]</obj_property>
+      <obj_property name="ObjectShortName">pcM[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/branchD" type="logic">
+      <obj_property name="ElementShortName">branchD</obj_property>
+      <obj_property name="ObjectShortName">branchD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/branchE" type="logic">
+      <obj_property name="ElementShortName">branchE</obj_property>
+      <obj_property name="ObjectShortName">branchE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/branchM" type="logic">
+      <obj_property name="ElementShortName">branchM</obj_property>
+      <obj_property name="ObjectShortName">branchM</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/actual_takeE" type="logic">
+      <obj_property name="ElementShortName">actual_takeE</obj_property>
+      <obj_property name="ObjectShortName">actual_takeE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/actual_takeM" type="logic">
+      <obj_property name="ElementShortName">actual_takeM</obj_property>
+      <obj_property name="ObjectShortName">actual_takeM</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/pred_takeD" type="logic">
+      <obj_property name="ElementShortName">pred_takeD</obj_property>
+      <obj_property name="ObjectShortName">pred_takeD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/pred_wrongM" type="logic">
+      <obj_property name="ElementShortName">pred_wrongM</obj_property>
+      <obj_property name="ObjectShortName">pred_wrongM</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/pred_takeF_loc" type="logic">
+      <obj_property name="ElementShortName">pred_takeF_loc</obj_property>
+      <obj_property name="ObjectShortName">pred_takeF_loc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/pred_takeF_r_loc" type="logic">
+      <obj_property name="ElementShortName">pred_takeF_r_loc</obj_property>
+      <obj_property name="ObjectShortName">pred_takeF_r_loc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/BHT" type="array">
+      <obj_property name="ElementShortName">BHT[1023:0][5:0]</obj_property>
+      <obj_property name="ObjectShortName">BHT[1023:0][5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/PHTl" type="array">
+      <obj_property name="ElementShortName">PHTl[63:0][1:0]</obj_property>
+      <obj_property name="ObjectShortName">PHTl[63:0][1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/i" type="array">
+      <obj_property name="ElementShortName">i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">i[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/j" type="array">
+      <obj_property name="ElementShortName">j[31:0]</obj_property>
+      <obj_property name="ObjectShortName">j[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/PHTl_index" type="array">
+      <obj_property name="ElementShortName">PHTl_index[5:0]</obj_property>
+      <obj_property name="ObjectShortName">PHTl_index[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/BHT_index" type="array">
+      <obj_property name="ElementShortName">BHT_index[9:0]</obj_property>
+      <obj_property name="ObjectShortName">BHT_index[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/BHR_value" type="array">
+      <obj_property name="ElementShortName">BHR_value[5:0]</obj_property>
+      <obj_property name="ObjectShortName">BHR_value[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/pred_wrongE_loc" type="logic">
+      <obj_property name="ElementShortName">pred_wrongE_loc</obj_property>
+      <obj_property name="ObjectShortName">pred_wrongE_loc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/update_PHTl_index" type="array">
+      <obj_property name="ElementShortName">update_PHTl_index[5:0]</obj_property>
+      <obj_property name="ObjectShortName">update_PHTl_index[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/update_BHT_index" type="array">
+      <obj_property name="ElementShortName">update_BHT_index[9:0]</obj_property>
+      <obj_property name="ObjectShortName">update_BHT_index[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/update_BHR_value" type="array">
+      <obj_property name="ElementShortName">update_BHR_value[5:0]</obj_property>
+      <obj_property name="ObjectShortName">update_BHR_value[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/pred_wrongM_loc" type="logic">
+      <obj_property name="ElementShortName">pred_wrongM_loc</obj_property>
+      <obj_property name="ObjectShortName">pred_wrongM_loc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/pred_takeD_loc" type="logic">
+      <obj_property name="ElementShortName">pred_takeD_loc</obj_property>
+      <obj_property name="ObjectShortName">pred_takeD_loc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/pred_takeF_glo" type="logic">
+      <obj_property name="ElementShortName">pred_takeF_glo</obj_property>
+      <obj_property name="ObjectShortName">pred_takeF_glo</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/pred_takeF_r_glo" type="logic">
+      <obj_property name="ElementShortName">pred_takeF_r_glo</obj_property>
+      <obj_property name="ObjectShortName">pred_takeF_r_glo</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/GHR_value" type="array">
+      <obj_property name="ElementShortName">GHR_value[7:0]</obj_property>
+      <obj_property name="ObjectShortName">GHR_value[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/GHR_value_prev" type="array">
+      <obj_property name="ElementShortName">GHR_value_prev[7:0]</obj_property>
+      <obj_property name="ObjectShortName">GHR_value_prev[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/PHTg" type="array">
+      <obj_property name="ElementShortName">PHTg[255:0][1:0]</obj_property>
+      <obj_property name="ObjectShortName">PHTg[255:0][1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/t" type="array">
+      <obj_property name="ElementShortName">t[31:0]</obj_property>
+      <obj_property name="ObjectShortName">t[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/PHTg_index" type="array">
+      <obj_property name="ElementShortName">PHTg_index[7:0]</obj_property>
+      <obj_property name="ObjectShortName">PHTg_index[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/pred_wrongE_glo" type="logic">
+      <obj_property name="ElementShortName">pred_wrongE_glo</obj_property>
+      <obj_property name="ObjectShortName">pred_wrongE_glo</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/pred_wrongM_glo" type="logic">
+      <obj_property name="ElementShortName">pred_wrongM_glo</obj_property>
+      <obj_property name="ObjectShortName">pred_wrongM_glo</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/update_PHTg_index" type="array">
+      <obj_property name="ElementShortName">update_PHTg_index[7:0]</obj_property>
+      <obj_property name="ObjectShortName">update_PHTg_index[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/pred_takeD_glo" type="logic">
+      <obj_property name="ElementShortName">pred_takeD_glo</obj_property>
+      <obj_property name="ObjectShortName">pred_takeD_glo</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/CPHT" type="array">
+      <obj_property name="ElementShortName">CPHT[255:0][1:0]</obj_property>
+      <obj_property name="ObjectShortName">CPHT[255:0][1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/l" type="array">
+      <obj_property name="ElementShortName">l[31:0]</obj_property>
+      <obj_property name="ObjectShortName">l[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/Strongly_not_taken" type="array">
+      <obj_property name="ElementShortName">Strongly_not_taken[1:0]</obj_property>
+      <obj_property name="ObjectShortName">Strongly_not_taken[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/Weakly_not_taken" type="array">
+      <obj_property name="ElementShortName">Weakly_not_taken[1:0]</obj_property>
+      <obj_property name="ObjectShortName">Weakly_not_taken[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/Weakly_taken" type="array">
+      <obj_property name="ElementShortName">Weakly_taken[1:0]</obj_property>
+      <obj_property name="ObjectShortName">Weakly_taken[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/Strongly_taken" type="array">
+      <obj_property name="ElementShortName">Strongly_taken[1:0]</obj_property>
+      <obj_property name="ObjectShortName">Strongly_taken[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/PHTl_DEPTH" type="array">
+      <obj_property name="ElementShortName">PHTl_DEPTH[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PHTl_DEPTH[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/BHT_DEPTH" type="array">
+      <obj_property name="ElementShortName">BHT_DEPTH[31:0]</obj_property>
+      <obj_property name="ObjectShortName">BHT_DEPTH[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/GHR_LENGTH" type="array">
+      <obj_property name="ElementShortName">GHR_LENGTH[31:0]</obj_property>
+      <obj_property name="ObjectShortName">GHR_LENGTH[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/Strongly_global" type="array">
+      <obj_property name="ElementShortName">Strongly_global[1:0]</obj_property>
+      <obj_property name="ObjectShortName">Strongly_global[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/Weakly_global" type="array">
+      <obj_property name="ElementShortName">Weakly_global[1:0]</obj_property>
+      <obj_property name="ObjectShortName">Weakly_global[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/Weakly_local" type="array">
+      <obj_property name="ElementShortName">Weakly_local[1:0]</obj_property>
+      <obj_property name="ObjectShortName">Weakly_local[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/testbench_tour_pred/dut/mips_tour_pred/dpt/bpt/Strongly_local" type="array">
+      <obj_property name="ElementShortName">Strongly_local[1:0]</obj_property>
+      <obj_property name="ObjectShortName">Strongly_local[1:0]</obj_property>
+   </wvobject>
 </wave_config>
